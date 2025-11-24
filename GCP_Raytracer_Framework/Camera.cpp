@@ -1,6 +1,6 @@
 #include "Camera.h"
 
-Camera::Camera() : eye(0.0f)
+Camera::Camera() : position(0.0f)
 {}
 
 Ray Camera::createRay(glm::ivec2 _winPos)

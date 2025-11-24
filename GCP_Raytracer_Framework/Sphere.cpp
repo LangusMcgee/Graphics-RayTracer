@@ -18,6 +18,7 @@ bool Sphere::intersect(Ray _ray, glm::vec3 &_intersectPos)
 	{
 		return false;
 	}
+
 	float x = glm::sqrt(glm::pow(r, 2) - glm::pow(d, 2)); // distance from closest point on ray to intersection point
 
 	// Assign closest intersection

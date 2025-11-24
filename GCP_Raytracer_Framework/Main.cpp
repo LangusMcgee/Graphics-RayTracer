@@ -1,14 +1,17 @@
 
 #include "GCP_GFX_Framework.h"
-
-
-
+#include <iostream>
+#include "RayTracer.h"
+#include "Sphere.h"
+#include "Camera.h"
 
 
 int main(int argc, char* argv[])
 {
+	int winX = 640;
+	int winY = 480;
 	// Set window size
-	glm::ivec2 winSize(640, 480);
+	glm::ivec2 winSize(winX, winY);
 
 	// This will handle rendering to screen
 	GCP_Framework _myFramework;
@@ -19,7 +22,30 @@ int main(int argc, char* argv[])
 		return -1;
 	}
 
+	ray_tracer raytrcr;
 
+	{
+		Sphere s1;
+		s1.radius(6000);
+		s1.position(glm::vec3(0, 0, 0));
+		s1.colour(glm::vec3(1, 0, 0));
+		raytrcr.addSphere(s1);
+		raytrcr.addSphere(s1);
+	}
+
+	_myFramework.SetAllPixels(glm::vec3(0.1f, 0.1f, 0.3f));
+
+	Camera cam;
+
+	for (int i = 0; i < winX; i++)
+	{
+		for (int j = 0; j < winY; j++)
+		{
+			glm::vec3 colour = raytrcr.trace_ray(cam.createRay(glm::ivec2(i, j)));
+			//std::cout << colour.x << " " << colour.y << " " << colour.z << "\n";
+			_myFramework.DrawPixel(glm::ivec2(i,j), colour);
+		}
+	}
 
 
 	// Preparing a position to draw a pixel
@@ -30,11 +56,13 @@ int main(int argc, char* argv[])
 	glm::vec3 pixelColour(1, 0, 0);
 
 
+	
+
 	// Sets all pixels the same colour
-	_myFramework.SetAllPixels( glm::vec3(0.1f,0.1f,0.3f) );
+
 
 	// Draws a single pixel
-	_myFramework.DrawPixel(pixelPosition, pixelColour);
+	//_myFramework.DrawPixel(pixelPosition, pixelColour);
 
 
 
