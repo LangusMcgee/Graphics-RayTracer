@@ -22,4 +22,6 @@ bool Sphere::intersect(Ray _ray, glm::vec3 &_intersectPos)
 
 	// Assign closest intersection
 	_intersectPos = a + ((glm::dot(p - a, n) - x) * n);
+
+	return true;
 }
