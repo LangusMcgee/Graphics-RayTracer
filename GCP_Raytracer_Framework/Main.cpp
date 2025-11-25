@@ -8,8 +8,8 @@
 
 int main(int argc, char* argv[])
 {
-	int winX = 640;
-	int winY = 480;
+	int winX = 1920;
+	int winY = 1080;
 	// Set window size
 	glm::ivec2 winSize(winX, winY);
 
@@ -26,16 +26,18 @@ int main(int argc, char* argv[])
 
 	{
 		Sphere s1;
-		s1.radius(6000);
-		s1.position(glm::vec3(0, 0, 0));
+		s1.radius(40);
+		s1.position(glm::vec3(winX/2, winY/2, -400));
 		s1.colour(glm::vec3(1, 0, 0));
 		raytrcr.addSphere(s1);
-		raytrcr.addSphere(s1);
+		//raytrcr.addSphere(s1);
 	}
 
 	_myFramework.SetAllPixels(glm::vec3(0.1f, 0.1f, 0.3f));
 
 	Camera cam;
+
+	glm::vec3 debug_red(1, 0, 0);
 
 	for (int i = 0; i < winX; i++)
 	{

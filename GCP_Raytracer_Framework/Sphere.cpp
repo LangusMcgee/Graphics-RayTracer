@@ -26,3 +26,37 @@ bool Sphere::intersect(Ray _ray, glm::vec3 &_intersectPos)
 
 	return true;
 }
+
+glm::vec3 Sphere::get_normal(glm::vec3 _intersectPos)
+{	
+	return glm::normalize(_intersectPos - m_position);
+}
+
+
+glm::vec3 Sphere::shade(glm::vec3 _viewPos, glm::vec3 _hitPos)
+{
+	//uniform sample u_Texture;
+	glm::vec3 u_ViewPos;
+
+	//varying vec2 v_TexCoord;
+	glm::vec3 v_Normal = get_normal(_hitPos);
+	glm::vec3 v_FragPos = _hitPos;
+
+	//vec4 tex = texture2D(u_Texture, v_TexCoord);
+	glm::vec3 lightPos(10, 10, 10);
+	glm::vec3 diffuseColor(1, 0, 0);
+
+	glm::vec3 N = normalize(v_Normal);
+	glm::vec3 lightDir = normalize(lightPos - v_FragPos);
+	float diff = std::fmax(dot(N, lightDir), 0.0);
+	glm::vec3 diffuse = diffuseColor * diff;
+
+	glm::vec3 specularColor(1, 1, 1);
+
+	glm::vec3 viewDir = glm::normalize(u_ViewPos - v_FragPos);
+	glm::vec3 reflectDir = reflect(-lightDir, N);
+	float spec = pow(std::fmax(dot(viewDir, reflectDir), 0.0), 32.0);
+	glm::vec3 specular = spec * specularColor;
+
+	return diffuse + specular;
+}
