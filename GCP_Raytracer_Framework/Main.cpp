@@ -8,8 +8,8 @@
 
 int main(int argc, char* argv[])
 {
-	int winX = 1920;
-	int winY = 1080;
+	int winX = 200;
+	int winY = 200;
 	// Set window size
 	glm::ivec2 winSize(winX, winY);
 
