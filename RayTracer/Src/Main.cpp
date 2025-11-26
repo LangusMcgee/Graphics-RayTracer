@@ -25,12 +25,8 @@ int main(int argc, char* argv[])
 	ray_tracer raytrcr;
 
 	{
-		Sphere s1;
-		s1.radius(40);
-		s1.position(glm::vec3(winX/2, winY/2, -400));
-		s1.colour(glm::vec3(1, 0, 0));
+		Sphere s1(glm::vec3(winX / 2, winY / 2, -400), glm::vec3(0,0,1), 40);
 		raytrcr.addSphere(s1);
-		//raytrcr.addSphere(s1);
 	}
 
 	_myFramework.SetAllPixels(glm::vec3(0.1f, 0.1f, 0.3f));

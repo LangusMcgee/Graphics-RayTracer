@@ -6,7 +6,7 @@ class Camera
 public:
 	Camera();
 	Ray createRay(glm::ivec2 _winPos);
-private:
+private:	
 	glm::vec3 position;
 	glm::vec3 direction;
 };

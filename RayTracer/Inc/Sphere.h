@@ -5,6 +5,8 @@
 class Sphere
 {
 public:
+	Sphere(glm::vec3 _pos, glm::vec3 _colour, float _rad) : m_position(_pos), m_colour(_colour), m_radius(_rad) {};
+
 	bool intersect(Ray _ray, glm::vec3& _intersectPos);
 
 	void radius(float _rad) { m_radius = _rad; }

@@ -88,7 +88,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>GLEW_STATIC;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>../SDKs/Include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Gwaphics Woyork\Graphics-RayTracer\GCP_Raytracer_Framework;D:\Gwaphics Woyork\Graphics-RayTracer\RayTracer\Inc;../SDKs/Include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -151,23 +151,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="..\RayTracer\Src\Camera.cpp" />
+    <ClCompile Include="..\RayTracer\Src\Main.cpp" />
+    <ClCompile Include="..\RayTracer\Src\RayTracer.cpp" />
+    <ClCompile Include="..\RayTracer\Src\Sphere.cpp" />
     <ClCompile Include="GCP_GFX_Framework.cpp" />
     <ClCompile Include="glew.c" />
-    <ClCompile Include="Main.cpp" />
-    <ClCompile Include="RayTracer.cpp" />
-    <ClCompile Include="Sphere.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="FragShader.txt" />
     <Text Include="VertShader.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Camera.h" />
+    <ClInclude Include="..\RayTracer\Inc\Camera.h" />
+    <ClInclude Include="..\RayTracer\Inc\Ray.h" />
+    <ClInclude Include="..\RayTracer\Inc\RayTracer.h" />
+    <ClInclude Include="..\RayTracer\Inc\Sphere.h" />
     <ClInclude Include="GCP_GFX_Framework.h" />
-    <ClInclude Include="Ray.h" />
-    <ClInclude Include="RayTracer.h" />
-    <ClInclude Include="Sphere.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
