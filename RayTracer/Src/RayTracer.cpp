@@ -3,41 +3,41 @@
 
 glm::vec3 ray_tracer::trace_ray(Ray _ray)
 {
-	glm::vec3 closest_intersection(0);
+    float closestDist = FLT_MAX;
+    bool intersection = false;
+    glm::vec3 closest_intersection;
+    int sphere_index = -1;
+    glm::vec3 colour;
 
-	bool intersection = false;
-	int sphere_index = 0;
+    for (int i = 0; i < sphere_list.size(); i++)
+    {
+        glm::vec3 intersect_pos(0);
+        
+        // Returns colour at closest intersection of the ray
+        if (sphere_list[i]->intersect(_ray, intersect_pos))
+        {
+            float dist = glm::distance(_ray.origin, intersect_pos);
 
-	glm::vec3 colour;
-
-	//std::cout << sphere_list.size() << "\n";
-
-	for (int i = 0; i < this->sphere_list.size(); i++)
-	{
-		glm::vec3 intersect_pos(0);
-
-
-		if (sphere_list[i].intersect(_ray, intersect_pos))
-		{
-			//std::cout << i << "\n";
-
-			colour = sphere_list[i].shade(_ray.origin, intersect_pos);
-			std::cout << "sphere " << i << std::endl;
-			intersection = true;
-			sphere_index = i;
-			closest_intersection = intersect_pos;
-		}
-	}
+            if (dist < closestDist)
+            {
+                closestDist = dist;
+                closest_intersection = intersect_pos;
+                sphere_index = i;
+                colour = sphere_list[i]->shade(_ray.origin, intersect_pos);
+                intersection = true;
+            }
+        }
+    }
 
 	if (intersection)
 	{
 		return colour;
 	}
 	else
-		return glm::vec3(0);
+		return glm::vec3(0.7,0.7,1);
 }
 
-void ray_tracer::addSphere(Sphere _sphere)
+void ray_tracer::addSphere(std::shared_ptr<Sphere> _sphere)
 {
 	sphere_list.push_back(_sphere);
 }

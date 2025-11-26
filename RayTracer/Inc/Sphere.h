@@ -11,6 +11,8 @@ public:
 
 	void radius(float _rad) { m_radius = _rad; }
 
+	glm::vec3 position() { return m_position; }
+
 	void position(glm::vec3 _pos) { m_position = _pos; }
 
 	glm::vec3 colour(){return m_colour;}

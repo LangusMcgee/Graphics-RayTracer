@@ -13,25 +13,37 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\RayTracer">
+      <UniqueIdentifier>{6eda7c70-8f87-4a53-9104-3a1f4edd6667}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\FrameWork">
+      <UniqueIdentifier>{b00c7e35-7558-41d6-a418-f466a7d6ba5c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\RayTracer">
+      <UniqueIdentifier>{e73b66a9-e422-4640-9bf9-9cd1ffbe58b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\FrameWork">
+      <UniqueIdentifier>{1bb818d4-8ef8-4845-9701-9f85f7f90523}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="glew.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GCP_GFX_Framework.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\RayTracer\Src\Camera.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\RayTracer\Src\Main.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="..\RayTracer\Src\Sphere.cpp">
+      <Filter>Source Files\RayTracer</Filter>
     </ClCompile>
     <ClCompile Include="..\RayTracer\Src\RayTracer.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\RayTracer</Filter>
     </ClCompile>
-    <ClCompile Include="..\RayTracer\Src\Sphere.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="..\RayTracer\Src\Main.cpp">
+      <Filter>Source Files\RayTracer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\RayTracer\Src\Camera.cpp">
+      <Filter>Source Files\RayTracer</Filter>
+    </ClCompile>
+    <ClCompile Include="glew.c">
+      <Filter>Source Files\FrameWork</Filter>
+    </ClCompile>
+    <ClCompile Include="GCP_GFX_Framework.cpp">
+      <Filter>Source Files\FrameWork</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -43,20 +55,29 @@
     </Text>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GCP_GFX_Framework.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\RayTracer\Inc\Camera.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\RayTracer\Inc\Ray.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\RayTracer\Inc\RayTracer.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\RayTracer</Filter>
     </ClInclude>
     <ClInclude Include="..\RayTracer\Inc\Sphere.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\RayTracer</Filter>
     </ClInclude>
+    <ClInclude Include="..\RayTracer\Inc\Ray.h">
+      <Filter>Header Files\RayTracer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\RayTracer\Inc\RayTracer.h">
+      <Filter>Header Files\RayTracer</Filter>
+    </ClInclude>
+    <ClInclude Include="GCP_GFX_Framework.h">
+      <Filter>Header Files\FrameWork</Filter>
+    </ClInclude>
+    <ClInclude Include="helpful.h">
+      <Filter>Header Files\RayTracer</Filter>
+    </ClInclude>
+    <ClInclude Include="world.h">
+      <Filter>Header Files\RayTracer</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>

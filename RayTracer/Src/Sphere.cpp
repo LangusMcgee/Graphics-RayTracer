@@ -51,7 +51,7 @@ glm::vec3 Sphere::shade(glm::vec3 _viewPos, glm::vec3 _hitPos)
 	float diff = std::fmax(dot(N, lightDir), 0.1);
 	glm::vec3 diffuse = diffuseColor * diff;
 
-	glm::vec3 specularColor(1, 1, 1);
+	glm::vec3 specularColor(1, 1, 0.5);
 
 	glm::vec3 viewDir = glm::normalize(u_ViewPos - v_FragPos);
 	glm::vec3 reflectDir = reflect(-lightDir, N);

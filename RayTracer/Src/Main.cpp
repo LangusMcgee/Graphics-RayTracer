@@ -4,6 +4,7 @@
 #include "RayTracer.h"
 #include "Sphere.h"
 #include "Camera.h"
+#include "helpful.h"
 
 
 int main(int argc, char* argv[])
@@ -23,22 +24,32 @@ int main(int argc, char* argv[])
 	}
 
 	ray_tracer raytrcr;
-
+	std::shared_ptr <Sphere> sphere;
+	std::shared_ptr <Sphere> sphere2;
+	std::shared_ptr <Sphere> sphere3;
 	{
-		Sphere s1(glm::vec3(winX / 2, winY / 2, -400), glm::vec3(0,0,1), 40);
-		raytrcr.addSphere(s1);
+
+		sphere = std::make_shared<Sphere>(glm::vec3(winX / 1.5, winY / 2, -400), glm::vec3(0, 0, 1), 40);
+		sphere2 = std::make_shared<Sphere>(glm::vec3(winX / 3, winY / 2, -500), glm::vec3(1, 0, 0), 60);
+		sphere3 = std::make_shared<Sphere>(glm::vec3(winX / 2, -100, -1000), glm::vec3(0, 1, 0), 500);
+		raytrcr.addSphere(sphere);
+		raytrcr.addSphere(sphere2);
+		raytrcr.addSphere(sphere3);
 	}
 
 	_myFramework.SetAllPixels(glm::vec3(0.1f, 0.1f, 0.3f));
 
 	Camera cam;
 
-	glm::vec3 debug_red(1, 0, 0);
+	print_vec3(sphere->position());
 
+	float r = 0.2;
 	for (int i = 0; i < winX; i++)
 	{
+		sphere->colour(glm::vec3(0, 1, 0));
 		for (int j = 0; j < winY; j++)
 		{
+			sphere->colour(glm::vec3(r, r, 1));
 			glm::vec3 colour = raytrcr.trace_ray(cam.createRay(glm::ivec2(i, j)));
 			//std::cout << colour.x << " " << colour.y << " " << colour.z << "\n";
 			_myFramework.DrawPixel(glm::ivec2(i,j), colour);

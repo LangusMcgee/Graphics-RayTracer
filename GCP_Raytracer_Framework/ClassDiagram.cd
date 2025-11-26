@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Camera">
+    <Position X="21.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAIAAAAAAAIAAAAIAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\Gwaphics Woyork\Graphics-RayTracer\RayTracer\Inc\Camera.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ray_tracer">
+    <Position X="19.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAABAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\Gwaphics Woyork\Graphics-RayTracer\RayTracer\Inc\RayTracer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sphere">
+    <Position X="22.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAACCAIAAAAAAQAIAAABAQAAAAAAEAAAEAAAAA=</HashCode>
+      <FileName>D:\Gwaphics Woyork\Graphics-RayTracer\RayTracer\Inc\Sphere.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="world">
+    <Position X="17.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>world.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="Ray">
+    <Position X="21" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D:\Gwaphics Woyork\Graphics-RayTracer\RayTracer\Inc\Ray.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Font Name="Tahoma" Size="8.25" />
+</ClassDiagram>
