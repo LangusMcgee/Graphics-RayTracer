@@ -4,7 +4,7 @@
 #include "RayTracer.h"
 #include "Sphere.h"
 #include "Camera.h"
-#include "helpful.h"
+//#include "helpful.h"
 
 
 int main(int argc, char* argv[])
@@ -41,7 +41,7 @@ int main(int argc, char* argv[])
 
 	Camera cam;
 
-	print_vec3(sphere->position());
+	//print_vec3(sphere->position());
 
 	float r = 0.2;
 	for (int i = 0; i < winX; i++)

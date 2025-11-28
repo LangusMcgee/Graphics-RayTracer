@@ -33,9 +33,6 @@
     <ClCompile Include="..\RayTracer\Src\RayTracer.cpp">
       <Filter>Source Files\RayTracer</Filter>
     </ClCompile>
-    <ClCompile Include="..\RayTracer\Src\Main.cpp">
-      <Filter>Source Files\RayTracer</Filter>
-    </ClCompile>
     <ClCompile Include="..\RayTracer\Src\Camera.cpp">
       <Filter>Source Files\RayTracer</Filter>
     </ClCompile>
@@ -44,6 +41,9 @@
     </ClCompile>
     <ClCompile Include="GCP_GFX_Framework.cpp">
       <Filter>Source Files\FrameWork</Filter>
+    </ClCompile>
+    <ClCompile Include="..\RayTracer\Src\Main.cpp">
+      <Filter>Source Files\RayTracer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -70,10 +70,10 @@
     <ClInclude Include="GCP_GFX_Framework.h">
       <Filter>Header Files\FrameWork</Filter>
     </ClInclude>
-    <ClInclude Include="helpful.h">
+    <ClInclude Include="..\RayTracer\Inc\helpful.h">
       <Filter>Header Files\RayTracer</Filter>
     </ClInclude>
-    <ClInclude Include="world.h">
+    <ClInclude Include="..\RayTracer\Inc\world.h">
       <Filter>Header Files\RayTracer</Filter>
     </ClInclude>
   </ItemGroup>
