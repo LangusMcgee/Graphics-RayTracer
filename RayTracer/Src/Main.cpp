@@ -9,10 +9,8 @@
 
 int main(int argc, char* argv[])
 {
-	int winX = 500;
-	int winY = 500;
 	// Set window size
-	glm::ivec2 winSize(winX, winY);
+	glm::ivec2 winSize(500, 500);
 
 	// This will handle rendering to screen
 	GCP_Framework _myFramework;
@@ -29,25 +27,28 @@ int main(int argc, char* argv[])
 	std::shared_ptr <Sphere> sphere3;
 	{
 
-		sphere = std::make_shared<Sphere>(glm::vec3(winX / 1.5, winY / 2, -400), glm::vec3(0, 0, 1), 40);
-		sphere2 = std::make_shared<Sphere>(glm::vec3(winX / 3, winY / 2, -500), glm::vec3(1, 0, 0), 60);
-		sphere3 = std::make_shared<Sphere>(glm::vec3(winX / 2, -100, -1000), glm::vec3(0, 1, 0), 500);
+		sphere = std::make_shared<Sphere>(glm::vec3(0, 0, -5), glm::vec3(0, 0, 1), 1.0f);
+		sphere2 = std::make_shared<Sphere>(glm::vec3(-2, 0, -6), glm::vec3(1, 0, 0), 1.0f);
+		sphere3 = std::make_shared<Sphere>(glm::vec3(0, 0, -5), glm::vec3(1, 0, 0), 1.0f);
 		raytrcr.addSphere(sphere);
 		raytrcr.addSphere(sphere2);
 		raytrcr.addSphere(sphere3);
 	}
 
-	_myFramework.SetAllPixels(glm::vec3(0.1f, 0.1f, 0.3f));
+	_myFramework.SetAllPixels(glm::vec3(0.1f, 0.1f, 1.0f));
 
 	Camera cam;
+	cam.setResolution(winSize.x, winSize.y);
+	glm::vec3 rotati(0, 0, 1);
+	//cam.transform.rotation(rotati);
 
 	//print_vec3(sphere->position());
 
 	float r = 0.2;
-	for (int i = 0; i < winX; i++)
+	for (int i = 0; i < winSize.x; i++)
 	{
 		sphere->colour(glm::vec3(0, 1, 0));
-		for (int j = 0; j < winY; j++)
+		for (int j = 0; j < winSize.y; j++)
 		{
 			sphere->colour(glm::vec3(r, r, 1));
 			glm::vec3 colour = raytrcr.trace_ray(cam.createRay(glm::ivec2(i, j)));

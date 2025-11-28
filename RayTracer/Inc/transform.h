@@ -4,7 +4,6 @@
 
 class Transform
 {
-public:
 	Transform();
 
 	void translate(glm::vec3 _movement);

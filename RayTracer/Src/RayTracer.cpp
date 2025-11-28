@@ -34,7 +34,7 @@ glm::vec3 ray_tracer::trace_ray(Ray _ray)
 		return colour;
 	}
 	else
-		return glm::vec3(0.7,0.7,1);
+		return glm::vec3(0.7,0.0f,0.0f);
 }
 
 void ray_tracer::addSphere(std::shared_ptr<Sphere> _sphere)
