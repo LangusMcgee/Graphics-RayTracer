@@ -38,6 +38,8 @@ public:
 	// SDL is uninitialised, you are expected to exit the program
 	void ShowAndHold();
 
+	void RenderFrame();
+
 protected:
 
 	// Internal variables

@@ -510,6 +510,20 @@ void GCP_Framework::ShowAndHold()
 
 }
 
+void GCP_Framework::RenderFrame()
+{
+	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+	glClear(GL_COLOR_BUFFER_BIT);
+
+	_mainBuffer->UpdateGL();
+	glActiveTexture(GL_TEXTURE0);
+	_mainBuffer->BindGLTex();
+
+	DrawVAOTris(_triangleVAO, 6, _shaderProgram);
+
+	SDL_GL_SwapWindow(_SDLwindow);
+}
+
 GCP_Framework::~GCP_Framework()
 {
 	delete _mainBuffer;

@@ -27,7 +27,7 @@ Ray Camera::createRay(glm::ivec2 _winPos)
 	glm::mat4 camToWorld = transform.model_matrix();
 
 	Ray newRay;
-	// Setting the origin of the ray to the pixel position on the window
+	
 	newRay.origin = glm::vec3(camToWorld * glm::vec4(0, 0, 0, 1));
 
 	newRay.direction = glm::normalize(glm::vec3(camToWorld * glm::vec4(camDir, 0)));
