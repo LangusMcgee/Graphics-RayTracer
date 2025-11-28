@@ -169,6 +169,7 @@
     <ClCompile Include="..\RayTracer\Src\Sphere.cpp" />
     <ClCompile Include="GCP_GFX_Framework.cpp" />
     <ClCompile Include="glew.c" />
+    <ClCompile Include="transform.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="FragShader.txt" />
@@ -182,6 +183,7 @@
     <ClInclude Include="..\RayTracer\Inc\Sphere.h" />
     <ClInclude Include="..\RayTracer\Inc\world.h" />
     <ClInclude Include="GCP_GFX_Framework.h" />
+    <ClInclude Include="transform.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

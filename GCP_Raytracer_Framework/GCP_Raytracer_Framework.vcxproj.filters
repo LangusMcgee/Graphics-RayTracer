@@ -25,6 +25,12 @@
     <Filter Include="Header Files\FrameWork">
       <UniqueIdentifier>{1bb818d4-8ef8-4845-9701-9f85f7f90523}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Other">
+      <UniqueIdentifier>{3b971eef-f133-4061-aa40-30b98a889ed2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Other">
+      <UniqueIdentifier>{06de2f03-8a92-4c4c-a745-082a7c26118c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\RayTracer\Src\Sphere.cpp">
@@ -44,6 +50,9 @@
     </ClCompile>
     <ClCompile Include="..\RayTracer\Src\Main.cpp">
       <Filter>Source Files\RayTracer</Filter>
+    </ClCompile>
+    <ClCompile Include="transform.cpp">
+      <Filter>Source Files\Other</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -74,7 +83,10 @@
       <Filter>Header Files\RayTracer</Filter>
     </ClInclude>
     <ClInclude Include="..\RayTracer\Inc\world.h">
-      <Filter>Header Files\RayTracer</Filter>
+      <Filter>Header Files\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="transform.h">
+      <Filter>Header Files\Other</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
