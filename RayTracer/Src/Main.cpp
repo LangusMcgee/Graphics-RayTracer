@@ -10,7 +10,7 @@
 int main(int argc, char* argv[])
 {
 	// Set window size
-	glm::ivec2 winSize(250, 250);
+	glm::ivec2 winSize(750, 750);
 
 	// This will handle rendering to screen
 	GCP_Framework _myFramework;
@@ -29,7 +29,7 @@ int main(int argc, char* argv[])
 
 		sphere = std::make_shared<Sphere>(glm::vec3(0, 0, -5), glm::vec3(0, 0, 1), 1.0f);
 		sphere2 = std::make_shared<Sphere>(glm::vec3(-2, 0, -6), glm::vec3(1, 0, 0), 1.0f);
-		sphere3 = std::make_shared<Sphere>(glm::vec3(0, 0, -5), glm::vec3(1, 0, 0), 1.0f);
+		sphere3 = std::make_shared<Sphere>(glm::vec3(3, 0, -5), glm::vec3(1, 0, 0), 1.0f);
 		raytrcr.addSphere(sphere);
 		raytrcr.addSphere(sphere2);
 		raytrcr.addSphere(sphere3);

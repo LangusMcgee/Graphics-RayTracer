@@ -15,7 +15,7 @@ private:
 	glm::ivec2 resolution;
 
 	float aspectRatio;
-	float fov = 100;
+	float fov = 90;
 
 	glm::vec3 position;
 	glm::vec3 direction;
