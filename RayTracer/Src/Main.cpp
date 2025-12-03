@@ -4,6 +4,7 @@
 #include "RayTracer.h"
 #include "Sphere.h"
 #include "Camera.h"
+#include "Renderer.h"
 #include <thread>
 //#include "helpful.h"
 
@@ -16,7 +17,7 @@ int main(int argc, char* argv[])
 
 
 	// Initialise window //////////////////////////////////////////
-	glm::ivec2 winSize(750, 750);
+	glm::ivec2 winSize(300, 300);
 
 	// This will handle rendering to screen
 	GCP_Framework _myFramework;
