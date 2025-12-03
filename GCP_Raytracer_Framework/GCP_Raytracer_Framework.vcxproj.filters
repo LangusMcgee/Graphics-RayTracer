@@ -51,8 +51,11 @@
     <ClCompile Include="..\RayTracer\Src\Main.cpp">
       <Filter>Source Files\RayTracer</Filter>
     </ClCompile>
-    <ClCompile Include="transform.cpp">
+    <ClCompile Include="..\RayTracer\Src\transform.cpp">
       <Filter>Source Files\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="..\RayTracer\Src\Renderer.cpp">
+      <Filter>Source Files\RayTracer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -85,8 +88,11 @@
     <ClInclude Include="..\RayTracer\Inc\world.h">
       <Filter>Header Files\Other</Filter>
     </ClInclude>
-    <ClInclude Include="transform.h">
+    <ClInclude Include="..\RayTracer\Inc\transform.h">
       <Filter>Header Files\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="..\RayTracer\Inc\Renderer.h">
+      <Filter>Header Files\RayTracer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

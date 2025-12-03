@@ -88,7 +88,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>GLEW_STATIC;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)SDKs\Include;$(ProjectDir)RayTracer\Inc;$(ProjectDir);D:\Gwaphics Woyork\Graphics-RayTracer\GCP_Raytracer_Framework;D:\Gwaphics Woyork\Graphics-RayTracer\RayTracer\Inc;../SDKs/Include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)SDKs\Include;$(ProjectDir)..\RayTracer\Inc;$(ProjectDir);D:\Gwaphics Woyork\Graphics-RayTracer\GCP_Raytracer_Framework;D:\Gwaphics Woyork\Graphics-RayTracer\RayTracer\Inc;../SDKs/Include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -108,7 +108,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>GLEW_STATIC;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)SDKs\Include;$(ProjectDir)RayTracer\Inc;$(ProjectDir);../SDKs/Include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)SDKs\Include;$(ProjectDir)..\RayTracer\Inc;$(ProjectDir);../SDKs/Include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -128,7 +128,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>GLEW_STATIC;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)SDKs\Include;$(ProjectDir)RayTracer\Inc;$(ProjectDir);$(ProjectDir)\RayTracer\Inc;$(ProjectDir)\GCP_Raytracer_Framework;../SDKs/Include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)SDKs\Include;$(ProjectDir)..\RayTracer\Inc;$(ProjectDir);$(ProjectDir)\RayTracer\Inc;$(ProjectDir)\GCP_Raytracer_Framework;../SDKs/Include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -148,7 +148,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>GLEW_STATIC;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)SDKs\Include;$(ProjectDir)RayTracer\Inc;$(ProjectDir);$(ProjectDir)\RayTracer\Inc;$(ProjectDir)\GCP_Raytracer_Framework;../SDKs/Include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)SDKs\Include;$(ProjectDir)..\RayTracer\Inc;$(ProjectDir);$(ProjectDir)\RayTracer\Inc;$(ProjectDir)\GCP_Raytracer_Framework;../SDKs/Include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -166,10 +166,11 @@
     <ClCompile Include="..\RayTracer\Src\Camera.cpp" />
     <ClCompile Include="..\RayTracer\Src\Main.cpp" />
     <ClCompile Include="..\RayTracer\Src\RayTracer.cpp" />
+    <ClCompile Include="..\RayTracer\Src\Renderer.cpp" />
     <ClCompile Include="..\RayTracer\Src\Sphere.cpp" />
+    <ClCompile Include="..\RayTracer\Src\transform.cpp" />
     <ClCompile Include="GCP_GFX_Framework.cpp" />
     <ClCompile Include="glew.c" />
-    <ClCompile Include="transform.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="FragShader.txt" />
@@ -180,10 +181,11 @@
     <ClInclude Include="..\RayTracer\Inc\helpful.h" />
     <ClInclude Include="..\RayTracer\Inc\Ray.h" />
     <ClInclude Include="..\RayTracer\Inc\RayTracer.h" />
+    <ClInclude Include="..\RayTracer\Inc\Renderer.h" />
     <ClInclude Include="..\RayTracer\Inc\Sphere.h" />
+    <ClInclude Include="..\RayTracer\Inc\transform.h" />
     <ClInclude Include="..\RayTracer\Inc\world.h" />
     <ClInclude Include="GCP_GFX_Framework.h" />
-    <ClInclude Include="transform.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

@@ -1,17 +1,22 @@
 #pragma once
 #include "Ray.h"
+#include "transform.h"
 
-class Transform {};
 
 class Camera
 {
 public:
 	Camera();
 	Ray createRay(glm::ivec2 _winPos);
-
+	void setResolution(int _x, int _y);
 	Transform transform;
 	//void translate
-private:	
+private:
+	glm::ivec2 resolution;
+
+	float aspectRatio;
+	float fov = 90;
+
 	glm::vec3 position;
 	glm::vec3 direction;
 };

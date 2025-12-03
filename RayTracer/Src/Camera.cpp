@@ -1,7 +1,7 @@
 #include "Camera.h"
 
 
-Camera::Camera() : position(0.0f)
+Camera::Camera()// : position(0.0f)
 {
 	setResolution(1920, 1080);
 }
