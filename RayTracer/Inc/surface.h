@@ -7,16 +7,13 @@ class surface
 {
 public:
 	surface(){}
-	virtual bool intersect(Ray _ray, glm::vec3& _intersectPos);
+	virtual ~surface() = default;
 
-	virtual glm::vec3 get_normal(glm::vec3 pos);
+	virtual bool intersect(Ray _ray, glm::vec3& _intersectPos) = 0;
 
+	virtual glm::vec3 get_normal(glm::vec3 pos) = 0;
 
-
-	virtual glm::vec3 shade(glm::vec3 _viewPos, glm::vec3 _hitPos);
+	virtual glm::vec3 shade(glm::vec3 _viewPos, glm::vec3 _hitPos) = 0;
 
 	Transform transform;
-
-private:
-
 };

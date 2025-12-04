@@ -5,6 +5,7 @@
 #include "Sphere.h"
 #include "Camera.h"
 #include "Renderer.h"
+#include "vector"
 #include <thread>
 //#include "helpful.h"
 

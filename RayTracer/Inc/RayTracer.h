@@ -9,7 +9,7 @@ class ray_tracer
 {
 public:
 	bool trace_ray(Ray _ray, glm::vec3 &_colour);
-	void addSphere(std::shared_ptr<Sphere> _sphere);
+	void addObject(std::shared_ptr<surface> _surface);
 private:
-	std::vector<std::shared_ptr<Sphere>> sphere_list;
+	std::vector<std::shared_ptr<surface>> sphere_list;
 };

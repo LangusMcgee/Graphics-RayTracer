@@ -1,4 +1,5 @@
 #include "RayTracer.h"
+#include "surface.h"
 #include "iostream"
 
 bool ray_tracer::trace_ray(Ray _ray, glm::vec3 &_colour)
@@ -38,7 +39,7 @@ bool ray_tracer::trace_ray(Ray _ray, glm::vec3 &_colour)
 		return false;
 }
 
-void ray_tracer::addSphere(std::shared_ptr<Sphere> _sphere)
+void ray_tracer::addObject(std::shared_ptr<surface> _surface)
 {
-	sphere_list.push_back(_sphere);
+	sphere_list.push_back(_surface);
 }
