@@ -9,6 +9,7 @@
 
 class renderer
 {
+public:
 	void init(glm::vec2 _winSize);
 	void addObject(std::shared_ptr<Sphere> _sphere) { m_ray_tracer.addSphere(_sphere); }
 	void renderScene();

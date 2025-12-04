@@ -2,7 +2,7 @@
 
 bool Sphere::intersect(Ray _ray, glm::vec3 &_intersectPos)
 {
-	glm::vec3 p = m_position; // Sphere position
+	glm::vec3 p = transform.position(); // Sphere position
 	glm::vec3 a = _ray.origin; // Ray origin
 	glm::vec3 n = _ray.direction; // Ray Direction
 	float r = m_radius; // Sphere radius
@@ -29,7 +29,7 @@ bool Sphere::intersect(Ray _ray, glm::vec3 &_intersectPos)
 
 glm::vec3 Sphere::get_normal(glm::vec3 _intersectPos)
 {	
-	return glm::normalize(_intersectPos - m_position);
+	return glm::normalize(_intersectPos - transform.position());
 }
 
 
@@ -43,7 +43,7 @@ glm::vec3 Sphere::shade(glm::vec3 _viewPos, glm::vec3 _hitPos)
 	glm::vec3 v_FragPos = _hitPos;
 
 	//vec4 tex = texture2D(u_Texture, v_TexCoord);
-	glm::vec3 lightPos(50, 20, 00);
+	glm::vec3 lightPos(0, 0, -10);
 	glm::vec3 diffuseColor = m_colour;
 
 	glm::vec3 N = normalize(v_Normal);

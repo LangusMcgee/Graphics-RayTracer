@@ -1,7 +1,7 @@
 #include "RayTracer.h"
 #include "iostream"
 
-glm::vec3 ray_tracer::trace_ray(Ray _ray)
+bool ray_tracer::trace_ray(Ray _ray, glm::vec3 &_colour)
 {
     float closestDist = FLT_MAX;
     bool intersection = false;
@@ -31,10 +31,11 @@ glm::vec3 ray_tracer::trace_ray(Ray _ray)
 
 	if (intersection)
 	{
-		return colour;
+		_colour = colour;
+        return true;
 	}
 	else
-		return glm::vec3(0.7,0.7f,1.0f);
+		return false;
 }
 
 void ray_tracer::addSphere(std::shared_ptr<Sphere> _sphere)

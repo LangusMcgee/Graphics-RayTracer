@@ -168,6 +168,7 @@
     <ClCompile Include="..\RayTracer\Src\RayTracer.cpp" />
     <ClCompile Include="..\RayTracer\Src\Renderer.cpp" />
     <ClCompile Include="..\RayTracer\Src\Sphere.cpp" />
+    <ClCompile Include="..\RayTracer\Src\surface.cpp" />
     <ClCompile Include="..\RayTracer\Src\transform.cpp" />
     <ClCompile Include="GCP_GFX_Framework.cpp" />
     <ClCompile Include="glew.c" />
@@ -183,6 +184,7 @@
     <ClInclude Include="..\RayTracer\Inc\RayTracer.h" />
     <ClInclude Include="..\RayTracer\Inc\Renderer.h" />
     <ClInclude Include="..\RayTracer\Inc\Sphere.h" />
+    <ClInclude Include="..\RayTracer\Inc\surface.h" />
     <ClInclude Include="..\RayTracer\Inc\transform.h" />
     <ClInclude Include="..\RayTracer\Inc\world.h" />
     <ClInclude Include="GCP_GFX_Framework.h" />

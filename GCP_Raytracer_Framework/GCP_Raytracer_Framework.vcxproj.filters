@@ -57,6 +57,9 @@
     <ClCompile Include="..\RayTracer\Src\Renderer.cpp">
       <Filter>Source Files\RayTracer</Filter>
     </ClCompile>
+    <ClCompile Include="..\RayTracer\Src\surface.cpp">
+      <Filter>Source Files\RayTracer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="FragShader.txt">
@@ -92,6 +95,9 @@
       <Filter>Header Files\Other</Filter>
     </ClInclude>
     <ClInclude Include="..\RayTracer\Inc\Renderer.h">
+      <Filter>Header Files\RayTracer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\RayTracer\Inc\surface.h">
       <Filter>Header Files\RayTracer</Filter>
     </ClInclude>
   </ItemGroup>
