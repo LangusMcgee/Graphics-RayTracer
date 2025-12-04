@@ -36,7 +36,7 @@ glm::vec3 Sphere::get_normal(glm::vec3 _intersectPos)
 glm::vec3 Sphere::shade(glm::vec3 _viewPos, glm::vec3 _hitPos)
 {
 	//uniform sample u_Texture;
-	glm::vec3 u_ViewPos;
+	//glm::vec3 u_ViewPos;
 
 	//varying vec2 v_TexCoord;
 	glm::vec3 v_Normal = get_normal(_hitPos);
@@ -53,7 +53,7 @@ glm::vec3 Sphere::shade(glm::vec3 _viewPos, glm::vec3 _hitPos)
 
 	glm::vec3 specularColor(1, 1, 0.5);
 
-	glm::vec3 viewDir = glm::normalize(u_ViewPos - v_FragPos);
+	glm::vec3 viewDir = glm::normalize(_viewPos - v_FragPos);
 	glm::vec3 reflectDir = reflect(-lightDir, N);
 	float spec = pow(std::fmax(dot(viewDir, reflectDir), 0.0), 32.0);
 	glm::vec3 specular = spec * specularColor;

@@ -180,6 +180,7 @@
   <ItemGroup>
     <ClInclude Include="..\RayTracer\Inc\Camera.h" />
     <ClInclude Include="..\RayTracer\Inc\helpful.h" />
+    <ClInclude Include="..\RayTracer\Inc\light.h" />
     <ClInclude Include="..\RayTracer\Inc\Ray.h" />
     <ClInclude Include="..\RayTracer\Inc\RayTracer.h" />
     <ClInclude Include="..\RayTracer\Inc\Renderer.h" />
