@@ -22,9 +22,14 @@ int main(int argc, char* argv[])
 	{
 
 		// create objects
-		sphere = std::make_shared<Sphere>(glm::vec3(0, 0, -5), glm::vec3(0, 0, 1), 1.0f);
-		sphere2 = std::make_shared<Sphere>(glm::vec3(-2, 0, -6), glm::vec3(1, 0, 0), 1.0f);
-		sphere3 = std::make_shared<Sphere>(glm::vec3(3, 0, -5), glm::vec3(1, 0, 0), 1.0f);
+		sphere = std::make_shared<Sphere>
+			(glm::vec3(0, 0, -5), glm::vec3(0, 0, 1), 1.0f);
+
+		sphere2 = std::make_shared<Sphere>
+			(glm::vec3(-2, 0, -6), glm::vec3(1, 0, 0), 1.0f);
+
+		sphere3 = std::make_shared<Sphere>
+			(glm::vec3(3, 0, -5), glm::vec3(1, 0, 0), 1.0f);
 
 		// add to raytracer object list
 		rendererA.addObject(sphere);
