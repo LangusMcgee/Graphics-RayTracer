@@ -1,4 +1,4 @@
-#include "Sphere.h"
+﻿#include "Sphere.h"
 #include "scene.h"
 
 bool Sphere::intersect(Ray _ray, glm::vec3 &_intersectPos)
@@ -36,48 +36,59 @@ glm::vec3 Sphere::get_normal(glm::vec3 _intersectPos)
 
 glm::vec3 Sphere::shade(glm::vec3 _viewPos, glm::vec3 _intersectPos, scene& _scene)
 {
-    glm::vec3 N = get_normal(_intersectPos);
-    glm::vec3 baseColor = m_colour;
+	//uniform sample u_Texture;
+	//glm::vec3 u_ViewPos;
 
-    glm::vec3 finalColor(0.0f);
+	//varying vec2 v_TexCoord;
+	glm::vec3 normal = get_normal(_intersectPos);
 
-    // Loop over all lights
-    for (int i = 0; i < _scene.light_list.size(); i++)
-    {
-        glm::vec3 lightPos = _scene.light_list[i]->position;
-        glm::vec3 lightDir = normalize(lightPos - _intersectPos);
-        float lightDist = glm::distance(lightPos, _intersectPos);
+	//vec4 tex = texture2D(u_Texture, v_TexCoord);
+	glm::vec3 lightPos(0, 0, 10);
+	//lightPos = _scene.light_list[0]->position;
+	glm::vec3 diffuseColor = m_colour;
 
-        // -------- SHADOW RAY --------
-        bool inShadow = false;
-        glm::vec3 shadowHit;
+	bool inShadow = false;
 
-        // Offset origin to avoid self-shadowing
-        Ray shadowRay(_intersectPos + N * 0.001f, lightDir);
 
-        for (int x = 0; x < _scene.object_list.size(); x++)
-        {
-            if (_scene.object_list[x]->intersect(shadowRay, shadowHit))
-            {
-                float hitDist = glm::distance(_intersectPos, shadowHit);
+	glm::vec3 shadowRayIntersect;
 
-                // If the object is between the point and the light ? shadow
-                if (hitDist < lightDist)
-                {
-                    inShadow = true;
-                    break;
-                }
-            }
-        }
+	for (int i = 0; i < _scene.light_list.size(); i++)
+	{
+		glm::vec3 lightDir = normalize(_scene.light_list[i]->position - _intersectPos);
 
-        // -------- DIFFUSE LIGHTING --------
-        float NdotL = glm::max(glm::dot(N, lightDir), 0.0f);
+		float lightDist = glm::distance(_scene.light_list[i]->position, _intersectPos);
 
-        // If shadowed ? darken or make zero
-        float shadowFactor = inShadow ? 0.0f : 1.0f;
+		for (int x = 0; x < _scene.object_list.size(); x++)
+		{
+			if (_scene.object_list[x].get() == this)
+				continue;   // skip self
 
-        finalColor += baseColor * NdotL * shadowFactor;
-    }
+			Ray shadowRay(_intersectPos + normal * 0.0001f, lightDir);
 
-    return finalColor;
+			if (_scene.object_list[x]->intersect(shadowRay, shadowRayIntersect))
+			{
+				float hitDist = glm::distance(_intersectPos, shadowRayIntersect);
+
+				if (hitDist < lightDist)
+				{
+					inShadow = true;
+					return glm::vec3(0);
+					break;
+				}
+			}
+		}
+	}
+	glm::vec3 lightDir = normalize(lightPos - _intersectPos);
+
+	float diff = std::fmax(dot(normal, lightDir), 0.1);
+	glm::vec3 diffuse = diffuseColor * diff;
+
+	glm::vec3 specularColor(1, 1, 0.5);
+
+	glm::vec3 viewDir = glm::normalize(_viewPos - _intersectPos);
+	glm::vec3 reflectDir = reflect(-lightDir, normal);
+	float spec = pow(std::fmax(dot(viewDir, reflectDir), 0.0), 32.0);
+	glm::vec3 specular = spec * specularColor;
+
+	return diffuse + specular;
 }

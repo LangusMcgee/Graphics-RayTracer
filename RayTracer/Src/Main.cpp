@@ -27,13 +27,13 @@ int main(int argc, char* argv[])
 
 		// create objects
 		sphere = std::make_shared<Sphere>
-			(glm::vec3(0, 0, -21), glm::vec3(0, 0, 1), 1.0f);
+			(glm::vec3(0, 0, -20), glm::vec3(0, 0, 1), 1.0f);
 
 		sphere2 = std::make_shared<Sphere>
 			(glm::vec3(-2, 0, -20), glm::vec3(1, 0, 0), 1.0f);
 
 		sphere3 = std::make_shared<Sphere>
-			(glm::vec3(3, 0, -22), glm::vec3(1, 0, 0), 1.0f);
+			(glm::vec3(3, 0, -20), glm::vec3(1, 0, 0), 1.0f);
 
 		ground = std::make_shared<Sphere>
 			(glm::vec3(0, -100, -100), glm::vec3(0.3, 0.6, 0.3), 100.0f);
@@ -45,9 +45,9 @@ int main(int argc, char* argv[])
 
 		std::shared_ptr<light> light1;
 
-		light1 = std::make_shared<light>(glm::vec3(0, 1, 0), glm::vec3(1, 0, 0), 1.0f);
+		light1 = std::make_shared<light>(glm::vec3(0, 10, -20), glm::vec3(1, 1, 1), 1.0f);
 
-		light1->position = glm::vec3(1, 0, 0);
+		//light1->position = glm::vec3(1, 0, 0);
 
 		main_scene.light_list.push_back(light1);
 
