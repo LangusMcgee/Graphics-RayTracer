@@ -1,4 +1,5 @@
 #include "Sphere.h"
+#include "scene.h"
 
 bool Sphere::intersect(Ray _ray, glm::vec3 &_intersectPos)
 {
@@ -33,30 +34,50 @@ glm::vec3 Sphere::get_normal(glm::vec3 _intersectPos)
 }
 
 
-glm::vec3 Sphere::shade(glm::vec3 _viewPos, glm::vec3 _hitPos)
+glm::vec3 Sphere::shade(glm::vec3 _viewPos, glm::vec3 _intersectPos, scene& _scene)
 {
-	//uniform sample u_Texture;
-	//glm::vec3 u_ViewPos;
+    glm::vec3 N = get_normal(_intersectPos);
+    glm::vec3 baseColor = m_colour;
 
-	//varying vec2 v_TexCoord;
-	glm::vec3 v_Normal = get_normal(_hitPos);
-	glm::vec3 v_FragPos = _hitPos;
+    glm::vec3 finalColor(0.0f);
 
-	//vec4 tex = texture2D(u_Texture, v_TexCoord);
-	glm::vec3 lightPos(0, 0, 10);
-	glm::vec3 diffuseColor = m_colour;
+    // Loop over all lights
+    for (int i = 0; i < _scene.light_list.size(); i++)
+    {
+        glm::vec3 lightPos = _scene.light_list[i]->position;
+        glm::vec3 lightDir = normalize(lightPos - _intersectPos);
+        float lightDist = glm::distance(lightPos, _intersectPos);
 
-	glm::vec3 N = normalize(v_Normal);
-	glm::vec3 lightDir = normalize(lightPos - v_FragPos);
-	float diff = std::fmax(dot(N, lightDir), 0.1);
-	glm::vec3 diffuse = diffuseColor * diff;
+        // -------- SHADOW RAY --------
+        bool inShadow = false;
+        glm::vec3 shadowHit;
 
-	glm::vec3 specularColor(1, 1, 0.5);
+        // Offset origin to avoid self-shadowing
+        Ray shadowRay(_intersectPos + N * 0.001f, lightDir);
 
-	glm::vec3 viewDir = glm::normalize(_viewPos - v_FragPos);
-	glm::vec3 reflectDir = reflect(-lightDir, N);
-	float spec = pow(std::fmax(dot(viewDir, reflectDir), 0.0), 32.0);
-	glm::vec3 specular = spec * specularColor;
+        for (int x = 0; x < _scene.object_list.size(); x++)
+        {
+            if (_scene.object_list[x]->intersect(shadowRay, shadowHit))
+            {
+                float hitDist = glm::distance(_intersectPos, shadowHit);
 
-	return diffuse + specular;
+                // If the object is between the point and the light ? shadow
+                if (hitDist < lightDist)
+                {
+                    inShadow = true;
+                    break;
+                }
+            }
+        }
+
+        // -------- DIFFUSE LIGHTING --------
+        float NdotL = glm::max(glm::dot(N, lightDir), 0.0f);
+
+        // If shadowed ? darken or make zero
+        float shadowFactor = inShadow ? 0.0f : 1.0f;
+
+        finalColor += baseColor * NdotL * shadowFactor;
+    }
+
+    return finalColor;
 }

@@ -3,6 +3,8 @@
 #include <transform.h>
 #include <Ray.h>
 
+
+class scene;
 class surface
 {
 public:
@@ -13,7 +15,7 @@ public:
 
 	virtual glm::vec3 get_normal(glm::vec3 pos) = 0;
 
-	virtual glm::vec3 shade(glm::vec3 _viewPos, glm::vec3 _hitPos) = 0;
+	virtual glm::vec3 shade(glm::vec3 _viewPos, glm::vec3 _hitPos, scene &_scene) = 0;
 
 	Transform transform;
 };

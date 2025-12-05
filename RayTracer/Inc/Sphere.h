@@ -24,7 +24,7 @@ public:
 
 	glm::vec3 get_normal(glm::vec3 pos);
 
-	glm::vec3 shade(glm::vec3 _viewPos, glm::vec3 _hitPos);
+	glm::vec3 shade(glm::vec3 _viewPos, glm::vec3 _hitPos, scene &_scene);
 
 private:
 	glm::vec3 m_colour;

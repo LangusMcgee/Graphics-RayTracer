@@ -88,7 +88,7 @@
     <ClInclude Include="..\RayTracer\Inc\helpful.h">
       <Filter>Header Files\RayTracer</Filter>
     </ClInclude>
-    <ClInclude Include="..\RayTracer\Inc\world.h">
+    <ClInclude Include="..\RayTracer\Inc\scene.h">
       <Filter>Header Files\Other</Filter>
     </ClInclude>
     <ClInclude Include="..\RayTracer\Inc\transform.h">
@@ -99,6 +99,9 @@
     </ClInclude>
     <ClInclude Include="..\RayTracer\Inc\surface.h">
       <Filter>Header Files\RayTracer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\RayTracer\Inc\light.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
