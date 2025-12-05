@@ -43,7 +43,7 @@ glm::vec3 Sphere::shade(glm::vec3 _viewPos, glm::vec3 _hitPos)
 	glm::vec3 v_FragPos = _hitPos;
 
 	//vec4 tex = texture2D(u_Texture, v_TexCoord);
-	glm::vec3 lightPos(0, 0, -10);
+	glm::vec3 lightPos(0, 0, 10);
 	glm::vec3 diffuseColor = m_colour;
 
 	glm::vec3 N = normalize(v_Normal);

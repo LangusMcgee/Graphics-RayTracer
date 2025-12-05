@@ -1,18 +1,14 @@
 #pragma once
 #include <vector>
 #include <memory>
-#include "scene.h"
+
 #include "surface.h"
 #include "light.h"
-#include <GLM/glm.hpp>
-#include "Ray.h"
 
-class ray_tracer
+
+struct scene
 {
-public:
-	bool trace_ray(Ray _ray, glm::vec3& _colour);
-	void addObject(std::shared_ptr<surface> _surface);
-private:
+	// contains all lights and surfaces
 	std::vector<std::shared_ptr<surface>> object_list;
 	std::vector<std::shared_ptr<Light>> light_list;
 };

@@ -23,7 +23,7 @@ void renderer::init(glm::vec2 _winSize)
 
 void renderer::renderScene()
 {
-	m_gcp_framework.SetAllPixels(glm::vec3(0.8, 0.7, 1));
+	m_gcp_framework.SetAllPixels(glm::vec3(0.8, 0.9, 1));
 	m_gcp_framework.RenderFrame();
 	for (int i = 0; i < winX; i++)
 	{

@@ -25,6 +25,8 @@ bool ray_tracer::trace_ray(Ray _ray, glm::vec3 &_colour)
                 closest_intersection = intersect_pos;
                 sphere_index = i;
                 colour = object_list[i]->shade(_ray.origin, intersect_pos);
+                // shoot shadow ray
+                // add shadow on top of colour
                 intersection = true;
             }
         }
