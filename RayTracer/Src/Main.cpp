@@ -16,6 +16,14 @@ int main(int argc, char* argv[])
 	renderer rendererA;
 	rendererA.init(glm::vec2(500, 500));
 
+	std::shared_ptr<Camera> camera;
+	camera = std::make_shared<Camera>();
+
+	rendererA.set_cam(camera);
+
+	camera->transform.rotate(glm::vec3(-25, -25, 0));
+	camera->transform.translate(glm::vec3(-10, 10, 0));
+
 	// Setup Objects /////////////////////////////////////////////////////////////////////////////
 	scene main_scene;
 
@@ -48,8 +56,10 @@ int main(int argc, char* argv[])
 		light1 = std::make_shared<light>(glm::vec3(10, 21, -0), glm::vec3(1, 1, 1), 1.0f);
 
 		std::shared_ptr<light> light2;
+		//light2->intensity = 1.0f;
+		//light2->color = glm::vec3(1, 1, 0);
 
-		light2 = std::make_shared<light>(glm::vec3(-10, 0, -0), glm::vec3(1, 1, 1), 1.0f);
+		light2 = std::make_shared<light>(glm::vec3(-20, 0, -10), glm::vec3(1, 1, 1), 1.0f);
 
 		std::shared_ptr<light> light3;
 

@@ -75,12 +75,12 @@ glm::vec3 Sphere::shade(glm::vec3 _viewPos, glm::vec3 _intersectPos, scene& _sce
 
         // diffuse
         float NdotL = glm::max(glm::dot(normal, lightDir), 0.0f);
-        glm::vec3 diffuseContribution = m_colour * NdotL;
+        glm::vec3 diffuse_contribution = m_colour * NdotL;
 
         if (blocked)
-            diffuseContribution *= glm::vec3(0.2f);
+            diffuse_contribution *= glm::vec3(0.2f);
 
-        diffuse += diffuseContribution;
+        diffuse += diffuse_contribution;
 
         // specular
         glm::vec3 viewDir = glm::normalize(_viewPos - _intersectPos);

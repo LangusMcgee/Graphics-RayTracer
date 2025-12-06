@@ -11,8 +11,13 @@
 class renderer
 {
 public:
-	void init(glm::vec2 _winSize);
+	bool init(glm::vec2 _winSize);
 	void set_scene(scene _scene) { m_ray_tracer.set_scene(_scene); }
+	void set_cam(std::shared_ptr<Camera> _cam)
+	{
+		m_camera = _cam;
+		m_camera->setResolution(winX, winY);
+	};
 	void renderScene();
 
 private:
@@ -24,5 +29,7 @@ private:
 	GCP_Framework m_gcp_framework;
 
 	ray_tracer m_ray_tracer;
-	Camera camera;
+
+	glm::vec2 m_win_size;
+	std::shared_ptr<Camera> m_camera;
 };
