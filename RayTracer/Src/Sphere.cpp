@@ -36,59 +36,62 @@ glm::vec3 Sphere::get_normal(glm::vec3 _intersectPos)
 
 glm::vec3 Sphere::shade(glm::vec3 _viewPos, glm::vec3 _intersectPos, scene& _scene)
 {
-	//uniform sample u_Texture;
-	//glm::vec3 u_ViewPos;
+    glm::vec3 normal = get_normal(_intersectPos);
 
-	//varying vec2 v_TexCoord;
-	glm::vec3 normal = get_normal(_intersectPos);
+    glm::vec3 diffuse = glm::vec3(0.0f);
+    glm::vec3 specular = glm::vec3(0.0f);
 
-	//vec4 tex = texture2D(u_Texture, v_TexCoord);
-	glm::vec3 lightPos(0, 0, 10);
-	//lightPos = _scene.light_list[0]->position;
-	glm::vec3 diffuseColor = m_colour;
+    glm::vec3 shadow_ray_intersect;
+    glm::vec3 ambient_colour = m_colour * 0.1f;
 
-	bool inShadow = false;
+    // iterate through each light
+    for (int i = 0; i < _scene.light_list.size(); i++)
+    {
+        // get the light direction and distance
+        glm::vec3 lightDir = normalize(_scene.light_list[i]->position - _intersectPos);
+        float lightDist = glm::distance(_scene.light_list[i]->position, _intersectPos);
 
+        bool blocked = false;
 
-	glm::vec3 shadowRayIntersect;
+        // shadow ray
+        Ray shadow_ray(_intersectPos + normal * 0.0001f, lightDir);
 
-	for (int i = 0; i < _scene.light_list.size(); i++)
-	{
-		glm::vec3 lightDir = normalize(_scene.light_list[i]->position - _intersectPos);
+        // check for occluders
+        for (int x = 0; x < _scene.object_list.size(); x++)
+        {
+            if (_scene.object_list[x].get() == this)
+                continue;
 
-		float lightDist = glm::distance(_scene.light_list[i]->position, _intersectPos);
+            if (_scene.object_list[x]->intersect(shadow_ray, shadow_ray_intersect))
+            {
+                float hitDist = glm::distance(_intersectPos, shadow_ray_intersect);
+                if (hitDist < lightDist)
+                {
+                    blocked = true;
+                    break;
+                }
+            }
+        }
 
-		for (int x = 0; x < _scene.object_list.size(); x++)
-		{
-			if (_scene.object_list[x].get() == this)
-				continue;   // skip self
+        // diffuse
+        float NdotL = glm::max(glm::dot(normal, lightDir), 0.0f);
+        glm::vec3 diffuseContribution = m_colour * NdotL;
 
-			Ray shadowRay(_intersectPos + normal * 0.0001f, lightDir);
+        if (blocked)
+            diffuseContribution *= glm::vec3(0.2f);
 
-			if (_scene.object_list[x]->intersect(shadowRay, shadowRayIntersect))
-			{
-				float hitDist = glm::distance(_intersectPos, shadowRayIntersect);
+        diffuse += diffuseContribution;
 
-				if (hitDist < lightDist)
-				{
-					inShadow = true;
-					return glm::vec3(0);
-					break;
-				}
-			}
-		}
-	}
-	glm::vec3 lightDir = normalize(lightPos - _intersectPos);
+        // specular
+        glm::vec3 viewDir = glm::normalize(_viewPos - _intersectPos);
+        glm::vec3 reflectDir = reflect(-lightDir, normal);
 
-	float diff = std::fmax(dot(normal, lightDir), 0.1);
-	glm::vec3 diffuse = diffuseColor * diff;
+        float spec = pow(glm::max(glm::dot(viewDir, reflectDir), 0.0f), 32.0f);
+        glm::vec3 specularColor(1.0f, 1.0f, 0.5f);
 
-	glm::vec3 specularColor(1, 1, 0.5);
+        specular += spec * specularColor;
+    }
 
-	glm::vec3 viewDir = glm::normalize(_viewPos - _intersectPos);
-	glm::vec3 reflectDir = reflect(-lightDir, normal);
-	float spec = pow(std::fmax(dot(viewDir, reflectDir), 0.0), 32.0);
-	glm::vec3 specular = spec * specularColor;
-
-	return diffuse + specular;
+    // final color
+    return ambient_colour + diffuse + specular;
 }
