@@ -30,12 +30,17 @@ int main(int argc, char* argv[])
 	std::shared_ptr <Sphere> sphere;
 	std::shared_ptr <Sphere> sphere2;
 	std::shared_ptr <Sphere> sphere3;
+	std::shared_ptr <Sphere> sphere4;
 	std::shared_ptr <Sphere> ground;
 	{
 
 		// create objects
 		sphere = std::make_shared<Sphere>
 			(glm::vec3(0, 0, -21), glm::vec3(0, 0, 1), 1.0f);
+
+		// create objects
+		sphere4 = std::make_shared<Sphere>
+			(glm::vec3(0.3, 0, -18), glm::vec3(0, 0, 1), 1.0f);
 
 		sphere2 = std::make_shared<Sphere>
 			(glm::vec3(-3, 0, -21), glm::vec3(1, 0, 0), 1.0f);
@@ -49,11 +54,12 @@ int main(int argc, char* argv[])
 		main_scene.object_list.push_back(sphere);
 		main_scene.object_list.push_back(sphere2);
 		main_scene.object_list.push_back(sphere3);
+		main_scene.object_list.push_back(sphere4);
 		main_scene.object_list.push_back(ground);
 
 		std::shared_ptr<light> light1;
 
-		light1 = std::make_shared<light>(glm::vec3(10, 21, -0), glm::vec3(1, 0, 1), 0.2f);
+		light1 = std::make_shared<light>(glm::vec3(100, 21, -21), glm::vec3(1, 0, 1), 0.2f);
 
 		std::shared_ptr<light> light2;
 		//light2->intensity = 1.0f;
@@ -63,7 +69,8 @@ int main(int argc, char* argv[])
 
 		std::shared_ptr<light> light3;
 
-		light3 = std::make_shared<light>(camera->transform.position(), glm::vec3(0, 1, 1), 0.2f);
+		light3 = std::make_shared<light>(camera->transform.position(), glm::vec3(0.4, 0.4, 0.08), 0.2f);
+		light3->position += glm::vec3(20, 10, 0);
 
 		//light1->position = glm::vec3(1, 0, 0);
 

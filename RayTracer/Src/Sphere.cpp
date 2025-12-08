@@ -25,7 +25,20 @@ bool Sphere::intersect(Ray _ray, glm::vec3 &_intersectPos)
 	// Assign closest intersection
 	_intersectPos = a + ((glm::dot(p - a, n) - x) * n);
 
-	return true;
+    // check if intersection point is in front of the ray or not
+
+    if (glm::dot(n,(p-a)) > 0)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+
+
+
+
 }
 
 glm::vec3 Sphere::get_normal(glm::vec3 _intersectPos)
@@ -73,27 +86,36 @@ glm::vec3 Sphere::shade(glm::vec3 _viewPos, glm::vec3 _intersectPos, scene& _sce
             }
         }
 
-        // diffuse
-        float NdotL = glm::max(glm::dot(normal, lightDir), 0.0f);
-        glm::vec3 diffuse_contribution = m_colour * NdotL;
 
         if (blocked)
-            diffuse_contribution *= glm::vec3(0.2f);
+        {
+            // in shadow - don't do anything
+            //diffuse_contribution *= glm::vec3(0.2f);
+        }
         else
         {
-            diffuse += _scene.light_list[i]->color * _scene.light_list[i]->intensity;
+            // not in shadow
+            //diffuse += _scene.light_list[i]->color * _scene.light_list[i]->intensity;
+
+            // diffuse
+            float NdotL = glm::max(glm::dot(normal, lightDir), 0.0f);
+            glm::vec3 diffuse_contribution = m_colour * NdotL;
+
+            diffuse += diffuse_contribution * _scene.light_list[i]->color;
+
+
+            // specular
+            glm::vec3 viewDir = glm::normalize(_viewPos - _intersectPos);
+            glm::vec3 reflectDir = reflect(-lightDir, normal);
+
+            float spec = pow(glm::max(glm::dot(viewDir, reflectDir), 0.0f), 32.0f);
+            glm::vec3 specularColor(_scene.light_list[i]->color);
+
+            specular += spec * specularColor;
+
         }
 
-        diffuse += diffuse_contribution;
 
-        // specular
-        glm::vec3 viewDir = glm::normalize(_viewPos - _intersectPos);
-        glm::vec3 reflectDir = reflect(-lightDir, normal);
-
-        float spec = pow(glm::max(glm::dot(viewDir, reflectDir), 0.0f), 32.0f);
-        glm::vec3 specularColor(_scene.light_list[i]->color);
-
-        specular += spec * specularColor;
     }
 
     // final color
