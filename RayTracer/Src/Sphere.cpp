@@ -1,5 +1,7 @@
 ﻿#include "Sphere.h"
 #include "scene.h"
+#include "helpful.h"
+#include <iostream>
 
 bool Sphere::intersect(Ray _ray, glm::vec3 &_intersectPos)
 {
@@ -27,7 +29,7 @@ bool Sphere::intersect(Ray _ray, glm::vec3 &_intersectPos)
 
     // check if intersection point is in front of the ray or not
 
-    if (glm::dot(n,(p-a)) > 0)
+    if (glm::dot(n,(p-a)) -x > 0)
     {
         return true;
     }
@@ -35,10 +37,6 @@ bool Sphere::intersect(Ray _ray, glm::vec3 &_intersectPos)
     {
         return false;
     }
-
-
-
-
 }
 
 glm::vec3 Sphere::get_normal(glm::vec3 _intersectPos)
@@ -47,7 +45,81 @@ glm::vec3 Sphere::get_normal(glm::vec3 _intersectPos)
 }
 
 
-glm::vec3 Sphere::shade(glm::vec3 _viewPos, glm::vec3 _intersectPos, scene& _scene)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Leigh's demo of recursion
+//myFUnc(5);
+//
+//
+//
+//
+//
+//
+//void myFUnc( int val )
+//{
+//    if( val > 0 )
+//
+//        myFUnc( --val);
+//    else
+//
+//}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+glm::vec3 Sphere::shade(glm::vec3 _viewPos, glm::vec3 _intersectPos, scene& _scene, int _recursion)
 {
     glm::vec3 normal = get_normal(_intersectPos);
 
@@ -86,11 +158,47 @@ glm::vec3 Sphere::shade(glm::vec3 _viewPos, glm::vec3 _intersectPos, scene& _sce
             }
         }
 
-
+        // Indirect Lighting ---------------------------------------------------------------------------------------------------------------//
         if (blocked)
         {
+            if (_recursion > 0)
+            {
+                _recursion--;
+
+
+                glm::vec3 indirect_colour(0);
+                int indirectRayCount = 4;
+                for (int i = 0; i < indirectRayCount; i++)
+                {
+                    float rx = static_cast <float>(rand()) / (static_cast <float>(RAND_MAX / 0.4) - 0.2);
+                    float ry = static_cast <float>(rand()) / (static_cast <float>(RAND_MAX / 0.4) - 0.2);
+                    float rz = static_cast <float>(rand()) / (static_cast <float>(RAND_MAX / 0.4) - 0.2);
+                    glm::vec3 indirect_direction = normal + glm::vec3(rx, ry, rz);
+                    Ray indirectLighting(_intersectPos, normal);
+
+
+                    for (int x = 0; x < _scene.object_list.size(); x++)
+                    {
+                        if (_scene.object_list[x].get() == this)
+                            continue;
+                        glm::vec3 indirectIntersect(0);
+                        if (_scene.object_list[x]->intersect(indirectLighting, indirectIntersect))
+                        {
+                           indirect_colour += _scene.object_list[x]->shade(normal, indirectIntersect, _scene, _recursion);
+                        }
+                    }
+                }
+
+                indirect_colour /= indirectRayCount;
+                print_vec3(indirect_colour);
+                diffuse += indirect_colour;
+                
             // in shadow - don't do anything
             //diffuse_contribution *= glm::vec3(0.2f);
+
+            }
+
+
         }
         else
         {

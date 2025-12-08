@@ -65,18 +65,18 @@ int main(int argc, char* argv[])
 		//light2->intensity = 1.0f;
 		//light2->color = glm::vec3(1, 1, 0);
 
-		light2 = std::make_shared<light>(glm::vec3(-20, 0, -10), glm::vec3(0.7, 0.7, 0), 0.5f);
+		light2 = std::make_shared<light>(glm::vec3(-20, 0, -10), glm::vec3(1, 1, 0.5), 1.0f);
 
 		std::shared_ptr<light> light3;
 
-		light3 = std::make_shared<light>(camera->transform.position(), glm::vec3(0.4, 0.4, 0.08), 0.2f);
-		light3->position += glm::vec3(20, 10, 0);
+		light3 = std::make_shared<light>(camera->transform.position(), glm::vec3(1, 1, 1), 0.2f);
+		//light3->position += glm::vec3(20, 10, 0);
 
 		//light1->position = glm::vec3(1, 0, 0);
 
 		//main_scene.light_list.push_back(light1);
 		main_scene.light_list.push_back(light2);
-		//main_scene.light_list.push_back(light3);
+		main_scene.light_list.push_back(light3);
 
 		rendererA.set_scene(main_scene);
 		// add to raytracer object list

@@ -15,7 +15,7 @@ public:
 
 	virtual glm::vec3 get_normal(glm::vec3 pos) = 0;
 
-	virtual glm::vec3 shade(glm::vec3 _viewPos, glm::vec3 _hitPos, scene &_scene) = 0;
+	virtual glm::vec3 shade(glm::vec3 _viewPos, glm::vec3 _hitPos, scene &_scene, int _recursion) = 0;
 
 	Transform transform;
 };
