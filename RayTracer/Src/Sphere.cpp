@@ -79,6 +79,10 @@ glm::vec3 Sphere::shade(glm::vec3 _viewPos, glm::vec3 _intersectPos, scene& _sce
 
         if (blocked)
             diffuse_contribution *= glm::vec3(0.2f);
+        else
+        {
+            diffuse += _scene.light_list[i]->color * _scene.light_list[i]->intensity;
+        }
 
         diffuse += diffuse_contribution;
 
@@ -87,7 +91,7 @@ glm::vec3 Sphere::shade(glm::vec3 _viewPos, glm::vec3 _intersectPos, scene& _sce
         glm::vec3 reflectDir = reflect(-lightDir, normal);
 
         float spec = pow(glm::max(glm::dot(viewDir, reflectDir), 0.0f), 32.0f);
-        glm::vec3 specularColor(1.0f, 1.0f, 0.5f);
+        glm::vec3 specularColor(_scene.light_list[i]->color);
 
         specular += spec * specularColor;
     }
