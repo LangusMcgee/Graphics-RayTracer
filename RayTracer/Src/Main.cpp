@@ -74,7 +74,7 @@ int main(int argc, char* argv[])
 
 		//light1->position = glm::vec3(1, 0, 0);
 
-		//main_scene.light_list.push_back(light1);
+		main_scene.light_list.push_back(light1);
 		main_scene.light_list.push_back(light2);
 		main_scene.light_list.push_back(light3);
 

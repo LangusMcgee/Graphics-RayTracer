@@ -167,14 +167,14 @@ glm::vec3 Sphere::shade(glm::vec3 _viewPos, glm::vec3 _intersectPos, scene& _sce
 
 
                 glm::vec3 indirect_colour(0);
-                int indirectRayCount = 4;
-                for (int i = 0; i < indirectRayCount; i++)
+                int samples = 4;
+                for (int i = 0; i < samples; i++)
                 {
                     float rx = static_cast <float>(rand()) / (static_cast <float>(RAND_MAX / 0.4) - 0.2);
                     float ry = static_cast <float>(rand()) / (static_cast <float>(RAND_MAX / 0.4) - 0.2);
                     float rz = static_cast <float>(rand()) / (static_cast <float>(RAND_MAX / 0.4) - 0.2);
                     glm::vec3 indirect_direction = normal + glm::vec3(rx, ry, rz);
-                    Ray indirectLighting(_intersectPos, normal);
+                    Ray indirectLighting(_intersectPos, indirect_direction);
 
 
                     for (int x = 0; x < _scene.object_list.size(); x++)
@@ -189,8 +189,8 @@ glm::vec3 Sphere::shade(glm::vec3 _viewPos, glm::vec3 _intersectPos, scene& _sce
                     }
                 }
 
-                indirect_colour /= indirectRayCount;
-                print_vec3(indirect_colour);
+                indirect_colour /= samples;
+                //print_vec3(indirect_colour);
                 diffuse += indirect_colour;
                 
             // in shadow - don't do anything

@@ -30,6 +30,7 @@ void renderer::renderScene()
 	{
 		for (int i = 0; i < winX; i++)
 		{
+			std::cout << "Row: " << i << "\n";
 			for (int j = 0; j < winY; j++)
 			{
 				// Determine pixel colour
