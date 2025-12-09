@@ -28,21 +28,13 @@ void renderer::renderScene()
 	m_gcp_framework.SetAllPixels(glm::vec3(0.8, 0.9, 1));
 	if (m_camera != nullptr)
 	{
-		for (int i = 0; i < winX; i++)
+		int activeThreads;
+		for (int row = 0; row < winY; row++)
 		{
-			std::cout << "Row: " << i << "\n";
-			for (int j = 0; j < winY; j++)
+			if (activeThreads < m_thread_count)
 			{
-				// Determine pixel colour
-				Ray ray = m_camera->createRay(glm::ivec2(i, j));
-				glm::vec3 colour(0);
-				bool hit = m_ray_tracer.trace_ray(ray, colour);
-
-				// Draws shaded pixel on hit
-				if (hit)
-				{
-					m_gcp_framework.DrawPixel(glm::ivec2(i, j), colour);
-				}
+				activeThreads++;
+				std::thread rowWorker(drawRow, row);
 			}
 		}
 		m_gcp_framework.ShowAndHold();
@@ -51,5 +43,22 @@ void renderer::renderScene()
 	{
 		std::cout << "NO CAMERA SELECTED!\n";
 		//m_gcp_framework.ShowAndHold();
+	}
+}
+
+void renderer::drawRow(int _row)
+{
+	for (int pixel = 0; pixel < winX; pixel++)
+	{
+		// Determine pixel colour
+		Ray ray = m_camera->createRay(glm::ivec2(_row, pixel));
+		glm::vec3 colour(0);
+		bool hit = m_ray_tracer.trace_ray(ray, colour);
+
+		// Draws shaded pixel on hit
+		if (hit)
+		{
+			m_gcp_framework.DrawPixel(glm::ivec2(_row, pixel), colour);
+		}
 	}
 }

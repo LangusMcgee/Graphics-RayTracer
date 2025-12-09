@@ -14,7 +14,7 @@
 int main(int argc, char* argv[])
 {
 	renderer rendererA;
-	rendererA.init(glm::vec2(500, 500));
+	rendererA.init(glm::vec2(1920, 1080));
 
 	std::shared_ptr<Camera> camera;
 	camera = std::make_shared<Camera>();
@@ -49,7 +49,7 @@ int main(int argc, char* argv[])
 			(glm::vec3(3, 0, -21), glm::vec3(1, 0, 0), 1.0f);
 
 		ground = std::make_shared<Sphere>
-			(glm::vec3(0, -101, -21), glm::vec3(0.3, 0.6, 0.3), 100.0f);
+			(glm::vec3(0, -1001, -21), glm::vec3(0.6, 0.6, 0.6), 1000.0f);
 
 		main_scene.object_list.push_back(sphere);
 		main_scene.object_list.push_back(sphere2);
@@ -74,9 +74,9 @@ int main(int argc, char* argv[])
 
 		//light1->position = glm::vec3(1, 0, 0);
 
-		main_scene.light_list.push_back(light1);
+		//main_scene.light_list.push_back(light1);
 		main_scene.light_list.push_back(light2);
-		main_scene.light_list.push_back(light3);
+		//main_scene.light_list.push_back(light3);
 
 		rendererA.set_scene(main_scene);
 		// add to raytracer object list

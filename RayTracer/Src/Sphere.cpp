@@ -159,7 +159,7 @@ glm::vec3 Sphere::shade(glm::vec3 _viewPos, glm::vec3 _intersectPos, scene& _sce
         }
 
         // Indirect Lighting ---------------------------------------------------------------------------------------------------------------//
-        if (blocked)
+        if (true)
         {
             if (_recursion > 0)
             {
