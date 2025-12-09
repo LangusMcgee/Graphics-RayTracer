@@ -8,9 +8,9 @@ class Sphere : public surface
 {
 public:
 	Sphere(glm::vec3 _pos, glm::vec3 _colour, float _rad) : 
-		m_colour(_colour),
 		m_radius(_rad) 
 	{
+		m_colour = _colour;
 		transform.position(_pos);
 	};
 
@@ -24,9 +24,8 @@ public:
 
 	glm::vec3 get_normal(glm::vec3 pos);
 
-	glm::vec3 shade(glm::vec3 _viewPos, glm::vec3 _hitPos, scene &_scene, int _recursion);
+	//virtual glm::vec3 shade(glm::vec3 _viewPos, glm::vec3 _hitPos, scene &_scene, int _recursion);
 
 private:
-	glm::vec3 m_colour;
 	float m_radius;
 };

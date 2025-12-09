@@ -14,7 +14,7 @@
 int main(int argc, char* argv[])
 {
 	renderer rendererA;
-	rendererA.init(glm::vec2(1920, 1080));
+	rendererA.init(glm::vec2(500, 500));
 
 	std::shared_ptr<Camera> camera;
 	camera = std::make_shared<Camera>();
@@ -49,7 +49,7 @@ int main(int argc, char* argv[])
 			(glm::vec3(3, 0, -21), glm::vec3(1, 0, 0), 1.0f);
 
 		ground = std::make_shared<Sphere>
-			(glm::vec3(0, -1001, -21), glm::vec3(0.6, 0.6, 0.6), 1000.0f);
+			(glm::vec3(0, -1001, -21), glm::vec3(1, 1, 1), 1000.0f);
 
 		main_scene.object_list.push_back(sphere);
 		main_scene.object_list.push_back(sphere2);
@@ -72,9 +72,9 @@ int main(int argc, char* argv[])
 		light3 = std::make_shared<light>(camera->transform.position(), glm::vec3(1, 1, 1), 0.2f);
 		//light3->position += glm::vec3(20, 10, 0);
 
-		//light1->position = glm::vec3(1, 0, 0);
+		light1->position = glm::vec3(1, 0, 0);
 
-		//main_scene.light_list.push_back(light1);
+		main_scene.light_list.push_back(light1);
 		main_scene.light_list.push_back(light2);
 		//main_scene.light_list.push_back(light3);
 

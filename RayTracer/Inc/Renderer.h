@@ -2,6 +2,7 @@
 #include <GCP_GFX_Framework.h>
 #include <GLM/glm.hpp>
 #include <memory>
+#include <mutex>
 
 #include "scene.h"
 #include "surface.h"
@@ -26,6 +27,7 @@ private:
 	int winX;
 	int winY;
 	unsigned int m_thread_count;
+	std::mutex pixelMutex;
 
 	GCP_Framework m_gcp_framework;
 
