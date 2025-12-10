@@ -17,7 +17,7 @@ bool renderer::init(glm::vec2 _winSize)
 	std::cout << "initialised \n";
 
 	// Get thread count
-	m_thread_count = 1;// std::thread::hardware_concurrency();
+	m_thread_count = std::thread::hardware_concurrency();
 	std::cout << m_thread_count << " concurrent threads are supported.\n";
 }
 
@@ -32,85 +32,59 @@ void renderer::renderScene()
 		return;
 	}
 
-	for (int i = 0; i < winX; i++)
+	// FIX: Divide Y rows, not X pixels
+	int rowsPerThread = winY / m_thread_count;
+	int remainder = winY % m_thread_count;
+
+	std::vector<std::thread> rowWorkers(m_thread_count);
+
+	int startRow = 0;
+
+	for (int i = 0; i < m_thread_count; i++)
 	{
-		//if (winX - i < 6)
-		//{
-		//	std::thread t1(&renderer::drawRow, this, i);
-		//	t1.join();
-		//	i++;
-		//}
-		std::thread t1(&renderer::drawRow, this, i);
-		t1.join();
-		i++;
-		std::thread t2(&renderer::drawRow, this, i);
-		t2.join();
-		//i++;
-		//std::thread t3(&renderer::drawRow, this, i);
-		//t3.join();
-		//i++;
-		//std::thread t4(&renderer::drawRow, this, i);
-		//t4.join();
-		//i++;
-		//std::thread t5(&renderer::drawRow, this, i);
-		//t5.join();
-		//i++;
-		//std::thread t6(&renderer::drawRow, this, i);
-		//t6.join();
-		//i++;
-		//std::thread t7(&renderer::drawRow, this, i);
-		//t7.join();
-	}
+		int endRow = startRow + rowsPerThread;
 
+		if (i < remainder)
+			endRow++;
 
-	//drawRow(10);
+		if (endRow > winY)
+			endRow = winY;
 
-	/*
-	std::vector<std::thread> rowWorkers;
-	rowWorkers.reserve(m_thread_count);
-
-	for (int row = 0; row < winY; row++)
-	{
-		rowWorkers.emplace_back(&renderer::drawRow, this, row);
-
-		if (rowWorkers.size() == m_thread_count)
-		{
-			for (int i =0; rowWorkers.size() < i; i++)
+		rowWorkers[i] = std::thread([this, startRow, endRow]()
 			{
-				rowWorkers[i].join();
-			}
+				drawRows(startRow, endRow);
+			});
 
-			rowWorkers.clear();
-		}
-		//drawRow(row);
-		std::cout << "drawn row: " << row << "\n";
+		startRow = endRow;
 	}
-	for (int i = 0; rowWorkers.size() < i; i++)
-	{
-		rowWorkers[i].join();
-	}
-	*/
 
+	for (auto& t : rowWorkers)
+		t.join();
+
+	std::cout << "Rendering done.\n";
 	m_gcp_framework.ShowAndHold();
 }
 
 
-void renderer::drawRow(int _row)
+
+void renderer::drawRows(int _startRow, int _endRow)
 {
-
-	for (int pixel = 0; pixel < winX; pixel++)
+	for (int row = _startRow; row < _endRow; row++)
 	{
-		// Determine pixel colour
-		Ray ray = m_camera->createRay(glm::ivec2(pixel, _row));
-		glm::vec3 colour(0);
-		bool hit = m_ray_tracer.trace_ray(ray, colour);
-
-		// Draws shaded pixel on hit
-		if (hit)
+		for (int pixel = 0; pixel < winX; pixel++)
 		{
-			//pixelMutex.lock();
-			m_gcp_framework.DrawPixel(glm::ivec2(pixel, _row), colour);
-			//pixelMutex.unlock();
+			// Determine pixel colour
+			Ray ray = m_camera->createRay(glm::ivec2(pixel, row));
+			glm::vec3 colour(0);
+			bool hit = m_ray_tracer.trace_ray(ray, colour);
+
+			// Draws shaded pixel on hit
+			if (hit)
+			{
+				//pixelMutex.lock();
+				m_gcp_framework.DrawPixel(glm::ivec2(pixel, row), colour);
+				//pixelMutex.unlock();
+			}
 		}
 	}
 }
