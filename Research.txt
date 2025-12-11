@@ -1,0 +1,35 @@
+Soft Shadows
+1.	Pick an area‑light model
+•	Decide rectangle, disk, or spherical light (disk or sphere are simplest). Add fields to your light struct: shape enum, size/radius, and orientation/normal (or width/height for rectangles).
+2.	Choose a sampling strategy
+•	Use stratified (grid) sampling, jittered stratified, or a low‑discrepancy sequence (Halton/Hammersley) for fewer visible artifacts.
+•	Decide a default sample count (e.g., 16, 32, 64). Make it configurable per light or globally.
+3.	Produce sample points on the light surface
+•	For each sample, compute a world‑space sample position on the area light surface. For disks use polar coordinates; for rectangles use two uniform dims. Optionally cosine‑weight samples if modeling Lambertian emission.
+4.	Cast shadow rays per sample
+•	For each sample point generate a shadow ray from the hit point toward that sample (keep your small epsilon offset along the normal).
+•	Use the same intersection test you already have but target the sample‑position distance (or modify shadowRayTest to accept a target sample point).
+5.	Compute a visibility / penumbra factor
+•	Count unoccluded samples and compute visibility = visibleSamples / totalSamples.
+•	Alternatively average per‑sample lighting contributions (compute N·L and specular per sample, then average); this produces correct soft penumbrae because blockers only occlude part of the light.
+6.	Apply visibility to shading
+•	Multiply the light’s diffuse/specular contribution by the computed visibility (or add the averaged per‑sample contributions directly). Keep ambient and indirect lighting separate.
+7.	Performance & noise control
+•	Use stratified sampling or low‑discrepancy sequences to reduce noise for a given sample count.
+•	Early exit when visibility becomes 0 (fully occluded) or 1 (fully visible) to save work.
+•	Use importance sampling (favor directions that contribute most, e.g., cosine weighting for diffuse).
+•	Consider temporal accumulation (accumulate across frames) or a denoiser if you need fewer samples.
+•	Use a spatial acceleration structure (BVH/kd‑tree) if you don’t already — shadow rays are the dominant cost.
+8.	Determinism and flicker
+•	Seed RNG deterministically per pixel and per frame (or use quasi‑random sequences) to avoid temporal flicker when animating.
+9.	Tuning & debugging
+•	Start with a low sample count and visualize only the visibility factor (grayscale) to tune sample patterns.
+•	Increase samples for final renders; measure performance vs quality (per‑light sample counts, adaptive sampling near penumbra edges).
+10.	Optional approximations (if you need cheaper soft shadows)
+•	Analytical penumbra approximations for spherical lights or single‑occluder approximations.
+•	Shadow mapping / PCF if you move to rasterization.
+Implementation notes specific to your codebase
+•	Add size/orientation to your light struct.
+•	Replace the single point shadow test per light with a loop over sample points (or add a new softShadowTest that performs the sampling and returns visibility).
+•	Keep using your epsilon offset (you already add normal * 0.0001f) and pass correct sample distance into the intersection check.
+That’s the workflow: convert point lights to area lights, sample the light surface, cast multiple shadow rays, average visibility (or per‑sample lighting), and optimize with stratified sampling, acceleration structures, and denoising.

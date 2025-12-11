@@ -19,8 +19,10 @@ glm::vec3 surface::shade(glm::vec3 _viewPos, glm::vec3 _intersectPos, scene& _sc
     for (int i = 0; i < _scene.light_list.size(); i++)
     {
         // get the light direction and distance
-        glm::vec3 lightDir = normalize(_scene.light_list[i]->position - _intersectPos);
-        float lightDist = glm::distance(_scene.light_list[i]->position, _intersectPos);
+		glm::vec3 lightPos = _scene.light_list[i]->transform.position();
+
+        glm::vec3 lightDir = normalize(lightPos - _intersectPos);
+        float lightDist = glm::distance(lightPos, _intersectPos);
 
         // shadow ray
         Ray shadow_ray(_intersectPos + normal * 0.0001f, lightDir);

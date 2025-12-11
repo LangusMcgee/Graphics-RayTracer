@@ -72,7 +72,7 @@ int main(int argc, char* argv[])
 		light3 = std::make_shared<light>(camera->transform.position(), glm::vec3(1, 1, 1), 0.2f);
 		//light3->position += glm::vec3(20, 10, 0);
 
-		light1->position = glm::vec3(1, 0, 0);
+		light1->transform.position(glm::vec3(1, 0, 0));
 
 		main_scene.light_list.push_back(light1);
 		main_scene.light_list.push_back(light2);

@@ -60,6 +60,9 @@
     <ClCompile Include="..\RayTracer\Src\surface.cpp">
       <Filter>Source Files\RayTracer</Filter>
     </ClCompile>
+    <ClCompile Include="light.cpp">
+      <Filter>Source Files\RayTracer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="FragShader.txt">
