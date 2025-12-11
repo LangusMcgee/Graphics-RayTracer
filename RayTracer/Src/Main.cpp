@@ -14,7 +14,7 @@
 int main(int argc, char* argv[])
 {
 	renderer rendererA;
-	rendererA.init(glm::vec2(500, 500));
+	rendererA.init(glm::vec2(2000, 2000));
 
 	std::shared_ptr<Camera> camera;
 	camera = std::make_shared<Camera>();

@@ -1,6 +1,8 @@
 #pragma once
 #include <GLM/glm.hpp>
 #include <transform.h>
+#include "light.h"
+#include <memory>
 #include <Ray.h>
 
 
@@ -20,6 +22,8 @@ public:
 	bool shadowRayTest(float lightDist, glm::vec3 _intersectPos, Ray _shadowRay, scene& _scene);
 
 	glm::vec3 getIndirectLighting(glm::vec3 _intersectPos, glm::vec3 _normal, int _samples, int _recursion, scene& _scene);
+
+	glm::vec3 getRandomPointOnLight(std::shared_ptr<light> _light);
 
 	Transform transform;
 

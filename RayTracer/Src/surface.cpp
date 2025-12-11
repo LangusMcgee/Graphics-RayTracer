@@ -3,6 +3,8 @@
 #include "helpful.h"
 #include <iostream>
 
+#define pi 3.14159265358979323846;
+
 glm::vec3 surface::shade(glm::vec3 _viewPos, glm::vec3 _intersectPos, scene& _scene, int _recursion)
 {
     glm::vec3 normal = get_normal(_intersectPos);
@@ -19,7 +21,7 @@ glm::vec3 surface::shade(glm::vec3 _viewPos, glm::vec3 _intersectPos, scene& _sc
     for (int i = 0; i < _scene.light_list.size(); i++)
     {
         // get the light direction and distance
-		glm::vec3 lightPos = _scene.light_list[i]->transform.position();
+		glm::vec3 lightPos = getRandomPointOnLight(_scene.light_list[i]);
 
         glm::vec3 lightDir = normalize(lightPos - _intersectPos);
         float lightDist = glm::distance(lightPos, _intersectPos);
@@ -141,4 +143,16 @@ glm::vec3 surface::getIndirectLighting(glm::vec3 _intersectPos, glm::vec3 _norma
         }
     }
     return indirect_colour /= _samples;
+}
+
+glm::vec3 surface::getRandomPointOnLight(std::shared_ptr<light> _light)
+{
+    float u = static_cast <float>(rand()) / static_cast <float>(RAND_MAX);
+    float v = static_cast <float>(rand()) / static_cast <float>(RAND_MAX);
+    float theta = u * 2.0f * pi;
+    float phi = acos(2.0f * v - 1.0f);
+    float x = _light->radius * sin(phi) * cos(theta);
+    float y = _light->radius * sin(phi) * sin(theta);
+    float z = _light->radius * cos(phi);
+    return glm::vec3(x, y, z) + _light->transform.position();
 }
