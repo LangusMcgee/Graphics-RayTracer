@@ -20,9 +20,11 @@ public:
 		m_camera->setResolution(winX, winY);
 	};
 	void renderScene();
-	void drawRows(int _startRow, int _endRow);
+
 
 private:
+
+	void drawRows(int _startRow, int _endRow);
 
 	int winX;
 	int winY;

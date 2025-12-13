@@ -3,7 +3,6 @@
 #include "helpful.h"
 #include <iostream>
 
-#define pi 3.14159265358979323846;
 
 glm::vec3 surface::shade(glm::vec3 _viewPos, glm::vec3 _intersectPos, scene& _scene, int _recursion)
 {
@@ -35,20 +34,7 @@ glm::vec3 surface::shade(glm::vec3 _viewPos, glm::vec3 _intersectPos, scene& _sc
         // Indirect Lighting ---------------------------------------------------------------------------------------------------------------//
         if (inShadow)
         {
-            if (_recursion > 0)
-            {
-                _recursion--;
 
-                glm::vec3 indirect_colour = getIndirectLighting(_intersectPos, normal, indirectSamples, _recursion, _scene);
-
-                //print_vec3(indirect_colour);
-                diffuse += indirect_colour;
-                diffuse /= 2;
-
-                // in shadow - don't do anything
-                //diffuse_contribution *= glm::vec3(0.2f);
-
-            }
 
 
         }
@@ -60,17 +46,6 @@ glm::vec3 surface::shade(glm::vec3 _viewPos, glm::vec3 _intersectPos, scene& _sc
             // diffuse
             float NdotL = glm::max(glm::dot(normal, lightDir), 0.0f);
             glm::vec3 diffuse_contribution = m_colour * NdotL;
-
-            if (_recursion > 0)
-            {
-                _recursion--;
-
-                glm::vec3 indirect_colour = getIndirectLighting(_intersectPos, normal, indirectSamples, _recursion, _scene);
-
-                diffuse += indirect_colour;
-
-                diffuse /= 2;
-            }
 
 
             diffuse += diffuse_contribution * _scene.light_list[i]->color;
@@ -89,6 +64,17 @@ glm::vec3 surface::shade(glm::vec3 _viewPos, glm::vec3 _intersectPos, scene& _sc
         }
 
 
+    }
+
+    if (_recursion > 0)
+    {
+        _recursion--;
+
+        glm::vec3 indirect_colour = getIndirectLighting(_intersectPos, normal, indirectSamples, _recursion, _scene);
+
+        diffuse += indirect_colour;
+
+        diffuse /= 2;
     }
 
     // final color
@@ -145,8 +131,10 @@ glm::vec3 surface::getIndirectLighting(glm::vec3 _intersectPos, glm::vec3 _norma
     return indirect_colour /= _samples;
 }
 
+//https://mathworld.wolfram.com/SpherePointPicking.html
 glm::vec3 surface::getRandomPointOnLight(std::shared_ptr<light> _light)
 {
+    float pi = 3.14159265358979323846;
     float u = static_cast <float>(rand()) / static_cast <float>(RAND_MAX);
     float v = static_cast <float>(rand()) / static_cast <float>(RAND_MAX);
     float theta = u * 2.0f * pi;

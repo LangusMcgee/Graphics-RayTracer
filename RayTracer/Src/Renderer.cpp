@@ -87,6 +87,7 @@ void renderer::drawRows(int _startRow, int _endRow)
 			}
 		}
 	}
+	m_gcp_framework.RenderFrame();
 }
 
 
