@@ -14,7 +14,7 @@ void Camera::setResolution(int _x, int _y)
 	aspectRatio = float(_x) / float(_y);
 }
 
-Ray Camera::createRay(glm::ivec2 _winPos)
+Ray Camera::createRay(glm::vec2 _winPos)
 {
 	float u = (_winPos.x + 0.5f) / float(resolution.x);
 	float v = (_winPos.y + 0.5f) / float(resolution.y);

@@ -20,10 +20,12 @@ public:
 		m_camera->setResolution(winX, winY);
 	};
 	void renderScene();
-	void drawRows(int _startRow, int _endRow);
+
 
 private:
 
+	void drawRows(int _startRow, int _endRow);
+	const int AA_SAMPLES = 4;
 	int winX;
 	int winY;
 	unsigned int m_thread_count;

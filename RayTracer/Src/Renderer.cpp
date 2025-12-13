@@ -1,6 +1,7 @@
 #include "Renderer.h"
 //#include <thread>
 
+
 bool renderer::init(glm::vec2 _winSize)
 {
 	m_win_size = _winSize;
@@ -73,20 +74,45 @@ void renderer::drawRows(int _startRow, int _endRow)
 	{
 		for (int pixel = 0; pixel < winX; pixel++)
 		{
-			// Determine pixel colour
-			Ray ray = m_camera->createRay(glm::ivec2(pixel, row));
-			glm::vec3 colour(0);
-			bool hit = m_ray_tracer.trace_ray(ray, colour);
+			glm::vec3 accumulatedColour(0.0f);
+			int hitCount = 0;
 
-			// Draws shaded pixel on hit
-			if (hit)
+			// Supersampling grid
+			for (int sy = 0; sy < AA_SAMPLES; sy++)
 			{
-				//pixelMutex.lock();
-				m_gcp_framework.DrawPixel(glm::ivec2(pixel, row), colour);
-				//pixelMutex.unlock();
+				for (int sx = 0; sx < AA_SAMPLES; sx++)
+				{
+					// Sub-pixel offset in range [0,1)
+					float offsetX = (sx + 0.5f) / AA_SAMPLES;
+					float offsetY = (sy + 0.5f) / AA_SAMPLES;
+
+					// Create ray with sub-pixel offset
+					Ray ray = m_camera->createRay(
+						glm::vec2(pixel + offsetX, row + offsetY)
+					);
+
+					glm::vec3 colour(0.0f);
+					if (m_ray_tracer.trace_ray(ray, colour))
+					{
+						accumulatedColour += colour;
+						hitCount++;
+					}
+				}
+			}
+
+			if (hitCount > 0)
+			{
+				accumulatedColour /= float(AA_SAMPLES * AA_SAMPLES);
+				m_gcp_framework.DrawPixel(
+					glm::ivec2(pixel, row),
+					accumulatedColour
+				);
 			}
 		}
 	}
+
+	m_gcp_framework.RenderFrame();
 }
+
 
 
