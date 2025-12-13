@@ -7,7 +7,7 @@ class Camera
 {
 public:
 	Camera();
-	Ray createRay(glm::ivec2 _winPos);
+	Ray createRay(glm::vec2 _winPos);
 	void setResolution(int _x, int _y);
 	Transform transform;
 	//void translate

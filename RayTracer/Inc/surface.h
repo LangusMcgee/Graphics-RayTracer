@@ -25,6 +25,8 @@ public:
 
 	glm::vec3 getRandomPointOnLight(std::shared_ptr<light> _light);
 
+	glm::vec3 directLighting(glm::vec3 intersectPos, glm::vec3 normal, scene& _scene);
+
 	Transform transform;
 
 protected:

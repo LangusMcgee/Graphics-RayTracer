@@ -38,17 +38,17 @@ int main(int argc, char* argv[])
 
 		// create objects
 		sphere = std::make_shared<Sphere>
-			(glm::vec3(0, 0, -21), glm::vec3(0, 0, 1), 1.0f);
+			(glm::vec3(0, 0, -21), glm::vec3(0, 1, 0), 1.0f);
 
 		// create objects
 		sphere4 = std::make_shared<Sphere>
-			(glm::vec3(0.3, 0, -18), glm::vec3(0, 0, 1), 1.0f);
+			(glm::vec3(0.3, 0, -18), glm::vec3(0, 1, 1), 1.0f);
 
 		sphere2 = std::make_shared<Sphere>
 			(glm::vec3(-3, 0, -21), glm::vec3(1, 0, 0), 1.0f);
 
 		sphere3 = std::make_shared<Sphere>
-			(glm::vec3(3, 0, -21), glm::vec3(1, 0, 0), 1.0f);
+			(glm::vec3(3, 0, -21), glm::vec3(1, 1, 0), 1.0f);
 
 		ground = std::make_shared<Sphere>
 			(glm::vec3(0, -1001, -21), glm::vec3(1, 1, 1), 1000.0f);

@@ -25,7 +25,7 @@ public:
 private:
 
 	void drawRows(int _startRow, int _endRow);
-
+	const int AA_SAMPLES = 4;
 	int winX;
 	int winY;
 	unsigned int m_thread_count;
