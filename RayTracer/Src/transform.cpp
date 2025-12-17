@@ -2,6 +2,7 @@
 #include <GLM/glm.hpp>
 #include <GLM/gtc/matrix_transform.hpp>
 
+// Pulled from previous assignment - 3DGP
 Transform::Transform() :
 	m_position(glm::vec3(0.0f)),
 	m_rotation(glm::vec3(0.0f)),

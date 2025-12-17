@@ -18,29 +18,33 @@ glm::vec3 surface::shade(glm::vec3 _viewPos, glm::vec3 _intersectPos, scene& _sc
     {
         float lightContribution = 0.0f;
 
+        // Accumulate light values from area light samples to get a soft shadow
         for (int s = 0; s < shadowSamples; s++)
         {
+            // Set values for sample
             glm::vec3 lightPos = getRandomPointOnLight(_scene.light_list[i]);
             glm::vec3 lightDir = glm::normalize(lightPos - _intersectPos);
             float lightDist = glm::distance(lightPos, _intersectPos);
 
+            // Create a ray from sphere to sample pos
             Ray shadowRay(_intersectPos + normal * 0.0001f, lightDir);
 
             if (!shadowRayTest(lightDist, _intersectPos, shadowRay, _scene))
             {
+                // Add light to contribution if sample is not blocked
                 lightContribution += glm::max(glm::dot(normal, lightDir), 0.0f);
             }
         }
 
-        lightContribution /= shadowSamples;
-        diffuse += m_colour * lightContribution * _scene.light_list[i]->color;
+        lightContribution /= shadowSamples; // get the mean value
+        diffuse += m_colour * lightContribution * _scene.light_list[i]->color; // Apply to diffuse
 
     }
 
     // Indirect lighting (recursive)
     if (_recursion > 0)
     {
-        _recursion--;
+        _recursion--; // Recursion to stop infinite passes.
         glm::vec3 indirect_colour =
             getIndirectLighting(_intersectPos, normal, indirectSamples, _recursion, _scene);
 

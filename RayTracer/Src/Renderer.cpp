@@ -22,8 +22,26 @@ bool renderer::init(glm::vec2 _winSize)
 	std::cout << m_thread_count << " concurrent threads are supported.\n";
 }
 
+bool renderer::set_thread_usage(int _threadCount)
+{
+	// Safe method to set the threadcount
+	int available_threads = std::thread::hardware_concurrency();
+	if (_threadCount > available_threads || _threadCount <= 0)
+	{
+		std::cout << "Thread count out of range. Max = " << m_thread_count << "\n";
+		return false;
+	}
+	else
+	{
+		m_thread_count = _threadCount;
+		return true;
+	}
+}
+
 void renderer::renderScene()
 {
+	auto start = std::chrono::high_resolution_clock::now();
+
 	m_gcp_framework.SetAllPixels(glm::vec3(1, 0, 1));
 	m_gcp_framework.RenderFrame();
 	m_gcp_framework.SetAllPixels(glm::vec3(0.8, 0.9, 1));
@@ -33,7 +51,6 @@ void renderer::renderScene()
 		return;
 	}
 
-	// FIX: Divide Y rows, not X pixels
 	int rowsPerThread = winY / m_thread_count;
 	int remainder = winY % m_thread_count;
 
@@ -59,14 +76,19 @@ void renderer::renderScene()
 		startRow = endRow;
 	}
 
-	for (auto& t : rowWorkers)
+	for (std::thread& t : rowWorkers)
 		t.join();
 
-	std::cout << "Rendering done.\n";
-	m_gcp_framework.ShowAndHold();
+	auto stop = std::chrono::high_resolution_clock::now();
+
+	auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
+	std::cout << " Threads : " << m_thread_count << "\nRendering time (ms) : " << duration.count() << "\n";
 }
 
-
+void renderer::show()
+{
+	m_gcp_framework.ShowAndHold();
+}
 
 void renderer::drawRows(int _startRow, int _endRow)
 {
@@ -78,17 +100,16 @@ void renderer::drawRows(int _startRow, int _endRow)
 			int hitCount = 0;
 
 			// Supersampling grid
-			for (int sy = 0; sy < AA_SAMPLES; sy++)
+			for (int sy = 0; sy < m_AA_Samples; sy++)
 			{
-				for (int sx = 0; sx < AA_SAMPLES; sx++)
+				for (int sx = 0; sx < m_AA_Samples; sx++)
 				{
-					// Sub-pixel offset in range [0,1)
-					float offsetX = (sx + 0.5f) / AA_SAMPLES;
-					float offsetY = (sy + 0.5f) / AA_SAMPLES;
+					// Sub-pixel offset in range
+					float offsetX = (sx + 0.5f) / m_AA_Samples;
+					float offsetY = (sy + 0.5f) / m_AA_Samples;
 
 					// Create ray with sub-pixel offset
-					Ray ray = m_camera->createRay(
-						glm::vec2(pixel + offsetX, row + offsetY)
+					Ray ray = m_camera->createRay(glm::vec2(pixel + offsetX, row + offsetY)
 					);
 
 					glm::vec3 colour(0.0f);
@@ -102,11 +123,8 @@ void renderer::drawRows(int _startRow, int _endRow)
 
 			if (hitCount > 0)
 			{
-				accumulatedColour /= float(AA_SAMPLES * AA_SAMPLES);
-				m_gcp_framework.DrawPixel(
-					glm::ivec2(pixel, row),
-					accumulatedColour
-				);
+				accumulatedColour /= float(m_AA_Samples * m_AA_Samples);
+				m_gcp_framework.DrawPixel(glm::ivec2(pixel, row),accumulatedColour);
 			}
 		}
 	}

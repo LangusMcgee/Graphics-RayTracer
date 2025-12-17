@@ -1,20 +1,34 @@
 
-#include "GCP_GFX_Framework.h"
 #include <iostream>
-#include "RayTracer.h"
-#include "Sphere.h"
-#include "Camera.h"
-#include "Renderer.h"
-#include "vector"
-#include "scene.h"
 #include <thread>
-//#include "helpful.h"
+
+#include "GCP_GFX_Framework.h"
+#include "Sphere.h"
+#include "Renderer.h"
 
 
 int main(int argc, char* argv[])
 {
 	renderer rendererA;
 	rendererA.init(glm::vec2(500, 500));
+
+
+	int threadAmount = 0;
+	bool correctVal = false;
+	while (!correctVal)
+	{
+		std::cout << "How many cores?: ";
+		while (!(std::cin >> threadAmount))
+		{
+			std::cout << "Please enter a valid integer: ";
+
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		}
+
+		correctVal = rendererA.set_thread_usage(int(threadAmount));
+	}
+
 
 	// Setup Camera /////////////////////////////////////////////////////////////////////////////
 
@@ -29,62 +43,56 @@ int main(int argc, char* argv[])
 	// Setup Objects /////////////////////////////////////////////////////////////////////////////
 	scene main_scene;
 
-	std::shared_ptr <Sphere> sphere;
+	std::shared_ptr <Sphere> sphere1;
 	std::shared_ptr <Sphere> sphere2;
 	std::shared_ptr <Sphere> sphere3;
 	std::shared_ptr <Sphere> sphere4;
 	std::shared_ptr <Sphere> ground;
-	{
 
-		// create objects
-		sphere = std::make_shared<Sphere>
-			(glm::vec3(0, 1, -21), glm::vec3(1, 1, 1), 2.0f);
+	// create objects
+	sphere1 = std::make_shared<Sphere>
+		(glm::vec3(0, 1, -21), glm::vec3(1, 1, 1), 2.0f);
+	sphere2 = std::make_shared<Sphere>
+		(glm::vec3(-3, 0, -21), glm::vec3(1, 0, 0), 1.0f);
+	sphere3 = std::make_shared<Sphere>
+		(glm::vec3(3, 0, -21), glm::vec3(1, 1, 0), 1.0f);
+	sphere4 = std::make_shared<Sphere>
+		(glm::vec3(0.3, 0, -18), glm::vec3(0, 1, 1), 1.0f);
+	ground = std::make_shared<Sphere>
+		(glm::vec3(0, -1001, -21), glm::vec3(1, 1, 1), 1000.0f);
 
-		// create objects
-		sphere4 = std::make_shared<Sphere>
-			(glm::vec3(0.3, 0, -18), glm::vec3(0, 1, 1), 1.0f);
+	// Add to scene
+	main_scene.object_list.push_back(sphere1);
+	main_scene.object_list.push_back(sphere2);
+	main_scene.object_list.push_back(sphere3);
+	main_scene.object_list.push_back(sphere4);
+	main_scene.object_list.push_back(ground);
 
-		sphere2 = std::make_shared<Sphere>
-			(glm::vec3(-3, 0, -21), glm::vec3(1, 0, 0), 1.0f);
+	std::shared_ptr<light> light1;
+	std::shared_ptr<light> light2;
+	std::shared_ptr<light> light3;
+	
+	// Create lights
+	light1 = std::make_shared<light>(glm::vec3(100, 21, -21), glm::vec3(0, 0, 1), 0.2f);
+	light2 = std::make_shared<light>(glm::vec3(-20, 0, -10), glm::vec3(1, 1, 0), 0.2f);
+	light3 = std::make_shared<light>(camera->transform.position(), glm::vec3(1, 1, 0.6), 0.2f);
 
-		sphere3 = std::make_shared<Sphere>
-			(glm::vec3(3, 0, -21), glm::vec3(1, 1, 0), 1.0f);
+	// Add to scene
+	main_scene.light_list.push_back(light1);
+	main_scene.light_list.push_back(light2);
+	main_scene.light_list.push_back(light3);
 
-		ground = std::make_shared<Sphere>
-			(glm::vec3(0, -1001, -21), glm::vec3(1, 1, 1), 1000.0f);
+	rendererA.set_scene(main_scene);
+	// add to raytracer object list
+		
+	//for (int i = 1; i <= 20; i++) - used for testing different thread amounts
+	//{
+	//	rendererA.set_thread_usage(i);
+	//	rendererA.renderScene();
+	//}
 
-		main_scene.object_list.push_back(sphere);
-		main_scene.object_list.push_back(sphere2);
-		main_scene.object_list.push_back(sphere3);
-		main_scene.object_list.push_back(sphere4);
-		main_scene.object_list.push_back(ground);
-
-		std::shared_ptr<light> light1;
-
-		light1 = std::make_shared<light>(glm::vec3(100, 21, -21), glm::vec3(0, 0, 1), 0.2f);
-
-		std::shared_ptr<light> light2;
-		//light2->intensity = 1.0f;
-		//light2->color = glm::vec3(1, 1, 0);
-
-		light2 = std::make_shared<light>(glm::vec3(-20, 0, -10), glm::vec3(1, 0, 0), 0.2f);
-
-		std::shared_ptr<light> light3;
-
-		light3 = std::make_shared<light>(camera->transform.position(), glm::vec3(1, 1, 1), 0.2f);
-		//light3->transform.position(glm::vec3(20, 10, 0));
-
-		//light1->transform.position(glm::vec3(1, 0, 0));
-
-		main_scene.light_list.push_back(light2);
-		//main_scene.light_list.push_back(light1);
-		main_scene.light_list.push_back(light3);
-
-		rendererA.set_scene(main_scene);
-		// add to raytracer object list
-
-		rendererA.renderScene();
-	}
+	rendererA.renderScene();
+	rendererA.show();
 
 
 	return 0;
