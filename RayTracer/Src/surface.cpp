@@ -5,13 +5,14 @@
 
 glm::vec3 surface::shade(glm::vec3 _viewPos, glm::vec3 _intersectPos, scene& _scene, int _recursion)
 {
+    return m_colour;
     glm::vec3 normal = get_normal(_intersectPos);
 
     glm::vec3 diffuse(0.0f);
     glm::vec3 ambient_colour = m_colour * 0.1f;
 
-    int indirectSamples = 4;
-    int shadowSamples = 4;
+    int indirectSamples = _scene.indirectSamples;
+    int shadowSamples = _scene.shadowSamples;
 
     // Iterate through lights
     for (int i = 0; i < _scene.light_list.size(); i++)

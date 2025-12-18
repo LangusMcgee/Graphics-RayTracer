@@ -11,4 +11,6 @@ struct scene
 	// contains all lights and surfaces
 	std::vector<std::shared_ptr<surface>> object_list;
 	std::vector<std::shared_ptr<light>> light_list;
+	int shadowSamples;
+	int indirectSamples;
 };

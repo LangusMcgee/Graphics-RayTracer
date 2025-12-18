@@ -27,6 +27,7 @@ public:
 	// Renders scene and prints time taken + set params
 	void renderScene();
 
+	void setAASamples(int _samples) { m_AA_Samples = _samples; }
 	// Show the scene - seperation required for performance test iterations
 	void show();
 
@@ -34,7 +35,7 @@ public:
 private:
 	// Used in render function for multithreading
 	void drawRows(int _startRow, int _endRow);
-	const int m_AA_Samples = 2; // Anti Ailasing samples.
+	int m_AA_Samples = 1; // Anti Ailasing samples.
 	int winX;
 	int winY;
 	unsigned int m_thread_count;

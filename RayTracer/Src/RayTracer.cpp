@@ -2,7 +2,7 @@
 #include "surface.h"
 #include "iostream"
 
-bool ray_tracer::trace_ray(Ray _ray, glm::vec3 &_colour)
+bool ray_tracer::trace_ray(Ray _ray, glm::vec3 &_colour) // -todo render distance param -Custom renderdist for first ray cast and then larger for in shade sampling
 {
     float closestDist = FLT_MAX; // Starting value to compare with furthest intersection.
     bool intersection = false;
@@ -32,7 +32,7 @@ bool ray_tracer::trace_ray(Ray _ray, glm::vec3 &_colour)
 
 	if (intersection)
 	{
-		_colour = colour;
+		_colour = colour; // return shaded colour to be drawn at pixel/added to AA sample
         return true;
 	}
 	else

@@ -13,22 +13,22 @@ int main(int argc, char* argv[])
 	rendererA.init(glm::vec2(500, 500));
 
 
-	int threadAmount = 0;
-	bool correctVal = false;
-	while (!correctVal)
-	{
-		std::cout << "How many cores?: ";
-		while (!(std::cin >> threadAmount))
-		{
-			std::cout << "Please enter a valid integer: ";
+	//int threadAmount = 0;
+	//bool correctVal = false;
+	//while (!correctVal)
+	//{
+	//	std::cout << "How many cores?: ";
+	//	while (!(std::cin >> threadAmount))
+	//	{
+	//		std::cout << "Please enter a valid integer: ";
 
-			std::cin.clear();
-			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-		}
+	//		std::cin.clear();
+	//		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+	//	}
 
-		correctVal = rendererA.set_thread_usage(int(threadAmount));
-	}
-
+	//	correctVal = rendererA.set_thread_usage(int(threadAmount));
+	//}
+	rendererA.set_thread_usage(12);
 
 	// Setup Camera /////////////////////////////////////////////////////////////////////////////
 
@@ -90,8 +90,53 @@ int main(int argc, char* argv[])
 	//	rendererA.set_thread_usage(i);
 	//	rendererA.renderScene();
 	//}
+	int testRange = 8;
+	int series = 3;
 
+	//std::cout << "----------ANTI ALIASING----------\n";
+	//for (int x = 1; x <= series; x++)
+	//{
+	//	std::cout << "Test " << x << "\n";
+	//	for (int i = 1; i <= testRange; i++)
+	//	{
+	//		std::cout << i << " AA samples.\n";
+	//		rendererA.setAASamples(i);
+
+	//		rendererA.renderScene();
+	//	}
+	//}
 	rendererA.renderScene();
+	//rendererA.setAASamples(1);
+
+	//std::cout << "----------Shadow Samples----------\n";
+	//for (int x = 1; x <= series; x++)
+	//{
+	//	std::cout << "Test " << x << "\n";
+	//	for (int i = 1; i <= testRange; i++)
+	//	{
+	//		std::cout << i << " Shadow samples.\n";
+	//		main_scene.shadowSamples = i;
+	//		rendererA.set_scene(main_scene);
+	//		rendererA.renderScene();
+	//	}
+	//}
+
+	//main_scene.shadowSamples = 0;
+
+	//std::cout << "----------Indirect Samples----------\n";
+	//for (int x = 1; x <= series; x++)
+	//{
+	//	std::cout << "Test " << x << "\n";
+	//	for (int i = 1; i <= testRange; i++)
+	//	{
+	//		std::cout << i << " Indirect samples.\n";
+	//		main_scene.indirectSamples = i;
+	//		rendererA.set_scene(main_scene);
+	//		rendererA.renderScene();
+	//	}
+	//}
+
+
 	rendererA.show();
 
 

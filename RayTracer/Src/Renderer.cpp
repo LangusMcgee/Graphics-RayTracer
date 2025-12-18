@@ -82,7 +82,7 @@ void renderer::renderScene()
 	auto stop = std::chrono::high_resolution_clock::now();
 
 	auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
-	std::cout << " Threads : " << m_thread_count << "\nRendering time (ms) : " << duration.count() << "\n";
+	std::cout << "Rendering time(ms) : " << duration.count() << "\n";
 }
 
 void renderer::show()
