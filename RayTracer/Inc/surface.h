@@ -32,6 +32,8 @@ public:
 	// Used for soft shadows, returns a point on the area light's sphere
 	glm::vec3 getRandomPointOnLight(std::shared_ptr<light> _light);
 
+	glm::vec3 randomInUnitSphere();
+
 	// Checks if in shadow and returns lighting value if not (directly lit)
 	glm::vec3 directLighting(glm::vec3 intersectPos, glm::vec3 normal, scene& _scene);
 

@@ -20,17 +20,19 @@ void Transform::rotate(glm::vec3 _rotation)
 	m_rotation += _rotation;
 }
 
-
+// Set pos
 void Transform::position(glm::vec3 _position)
 {
 	m_position = _position;
 }
 
+// set rot
 void Transform::rotation(glm::vec3 _rotation)
 {
 	m_rotation = _rotation;
 }
 
+// Set scale
 void Transform::scale(glm::vec3 _scale)
 {
 	m_scale = _scale;

@@ -39,8 +39,3 @@ bool ray_tracer::trace_ray(Ray _ray, glm::vec3 &_colour) // -todo render distanc
         _colour = glm::vec3(0); // return black incase we want to debug - currently this colour is not in use.
 		return false;
 }
-
-//void ray_tracer::addObject(std::shared_ptr<surface> _surface)
-//{
-//	object_list.push_back(_surface);
-//}

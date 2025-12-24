@@ -364,8 +364,8 @@ bool GCP_Framework::Init( glm::ivec2 screenSize )
 	// Now we have got SDL initialised, we are ready to create a window!
 	// These are some variables to help show you what the parameters are for this function
 	// You can experiment with the numbers to see what they do
-	int winPosX = 0;
-	int winPosY = 0;
+	int winPosX = 100;
+	int winPosY = 100;
 	int winWidth = _screenSize.x;
 	int winHeight = _screenSize.y;
 	_SDLwindow = SDL_CreateWindow("My Window!!!",  // The first parameter is the window title

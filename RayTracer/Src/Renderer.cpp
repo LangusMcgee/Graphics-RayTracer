@@ -65,9 +65,11 @@ void renderer::renderScene()
 		if (i < remainder)
 			endRow++;
 
+		// if at end draw remaining
 		if (endRow > winY)
 			endRow = winY;
 
+		// Set draw function for each thread according to current requirements
 		rowWorkers[i] = std::thread([this, startRow, endRow]()
 			{
 				drawRows(startRow, endRow);
@@ -87,6 +89,7 @@ void renderer::renderScene()
 
 void renderer::show()
 {
+	std::cout << "Showing Frame\n";
 	m_gcp_framework.ShowAndHold();
 }
 
@@ -104,15 +107,14 @@ void renderer::drawRows(int _startRow, int _endRow)
 			{
 				for (int sx = 0; sx < m_AA_Samples; sx++)
 				{
-					// Sub-pixel offset in range
-					float offsetX = (sx + 0.5f) / m_AA_Samples;
-					float offsetY = (sy + 0.5f) / m_AA_Samples;
+					// Sub pixel offset
+					float offsetX = (sx + (float(rand()) / RAND_MAX)) / m_AA_Samples;
+					float offsetY = (sy + (float(rand()) / RAND_MAX)) / m_AA_Samples;
 
-					// Create ray with sub-pixel offset
-					Ray ray = m_camera->createRay(glm::vec2(pixel + offsetX, row + offsetY)
-					);
+					// Create ray with sub pixel offset
+					Ray ray = m_camera->createRay(glm::vec2(pixel + offsetX, row + offsetY));
 
-					glm::vec3 colour(0.0f);
+					glm::vec3 colour(0.0f); // temp value to pass in
 					if (m_ray_tracer.trace_ray(ray, colour))
 					{
 						accumulatedColour += colour;
@@ -123,13 +125,13 @@ void renderer::drawRows(int _startRow, int _endRow)
 
 			if (hitCount > 0)
 			{
-				accumulatedColour /= float(m_AA_Samples * m_AA_Samples);
+				accumulatedColour /= float(m_AA_Samples * m_AA_Samples); // get averaged value
 				m_gcp_framework.DrawPixel(glm::ivec2(pixel, row),accumulatedColour);
 			}
 		}
 	}
 
-	m_gcp_framework.RenderFrame();
+
 }
 
 

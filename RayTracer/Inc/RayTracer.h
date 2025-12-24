@@ -11,8 +11,9 @@
 class ray_tracer
 {
 public:
+	// Shoots ray from camera to world to get first intersection
 	bool trace_ray(Ray _ray, glm::vec3& _colour);
-	void addObject(std::shared_ptr<surface> _surface);
+	// Sets scene
 	void set_scene(scene _scene) { m_scene = _scene; };
 private:
 	scene m_scene;
